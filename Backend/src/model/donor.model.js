@@ -1,4 +1,4 @@
-import {Schema} from 'mongoose'
+import {Schema, SchemaType} from 'mongoose'
 const donorSchema= new Schema({
  name:{
     type:String,
@@ -14,6 +14,15 @@ email:{
 phone:{
     type:String,
     required:true
+},
+
+address:{
+    type :String,
+    required:true
+},
+donationHistory:{
+    type: Schema.Types.donationHistory,
+    ref:""
 }
 
 }
