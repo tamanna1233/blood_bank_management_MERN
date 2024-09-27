@@ -20,16 +20,15 @@ const organizationSchema= new Schema({
     location:{
         type:Schema.Types.ObjectId,
         ref :'Location',
-        // required:true,
 
     },
     bloodInventory:{
-        type: ,
-        required:true,
+        type:Schema.Types.ObjectId ,
+        ref:'BloodInvetery'
     },
     donationRequest:{
-        type: ,
-        required:true,
+        type:Schema.Types.ObjectId ,
+        ref:'DonationRequest'
     }
 })
        
