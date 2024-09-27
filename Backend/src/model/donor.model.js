@@ -22,8 +22,8 @@ location:{
 },
 
 donationHistory:{
-    type: Schema.Types.donationHistory,
-    ref:""
+    type: Schema.Types.ObjectId,
+    ref:"DonationHistory"
 },
 bloodType:{
     type:String,
