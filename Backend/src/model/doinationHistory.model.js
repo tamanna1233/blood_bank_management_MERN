@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 
-const donationHistoryShema= new Schema({
+const donationHistorySchema= new Schema({
    orgainzation:{
     type: Schema.Types.ObjectId,
     ref:"Orgainzation"
@@ -13,4 +13,4 @@ const donationHistoryShema= new Schema({
 {
     timestamps:true
 })
-export const  DonationHistory=model("DonationHistory",donationHistoryShema)
+export const  DonationHistory=model("DonationHistory",donationHistorySchema)
