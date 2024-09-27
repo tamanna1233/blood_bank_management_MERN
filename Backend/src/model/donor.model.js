@@ -16,13 +16,19 @@ phone:{
     required:true
 },
 
-address:{
-    type :String,
-    required:true
+location:{
+    type : Schema.ObjectId.locationSchema ,
+    ref :"Location"
 },
+
 donationHistory:{
     type: Schema.Types.donationHistory,
     ref:""
+},
+bloodType:{
+    type:String,
+    required:true
+
 }
 
 }

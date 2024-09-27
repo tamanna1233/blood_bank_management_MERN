@@ -6,7 +6,8 @@ donorId:{
     required:true,
 
 },
-donationDate:{
+volume:{
+    type:number,
     
 }
  },
