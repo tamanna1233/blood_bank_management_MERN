@@ -1,4 +1,4 @@
-import {Schema, SchemaType} from 'mongoose'
+import {model, Schema, SchemaType} from 'mongoose'
 const donorSchema= new Schema({
  name:{
     type:String,
@@ -17,7 +17,7 @@ phone:{
 },
 
 location:{
-    type : Schema.ObjectId.locationSchema ,
+    type : Schema.Types.ObjectId,
     ref :"Location"
 },
 
@@ -35,3 +35,4 @@ bloodType:{
 ,{
 timestamps:true
 })
+export const Donor = model("Donor",)
