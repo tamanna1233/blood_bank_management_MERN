@@ -19,7 +19,7 @@ const donationRequestSchema =new Schema({
     status:
     {
         type:String,
-        // required:true
+        enum:['pending','cancel','confirmed']
     },
 
 
