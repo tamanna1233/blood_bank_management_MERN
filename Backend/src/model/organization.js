@@ -24,11 +24,11 @@ const organizationSchema= new Schema({
 
     },
     bloodInventory:{
-        type:,
+        type: ,
         required:true,
     },
     donationRequest:{
-        type:  ,
+        type: ,
         required:true,
     }
 })
