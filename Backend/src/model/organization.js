@@ -31,5 +31,4 @@ const organizationSchema= new Schema({
         ref:'DonationRequest'
     }
 })
-       
 export const Orgainzation=model("Orgainzation",organizationSchema)
