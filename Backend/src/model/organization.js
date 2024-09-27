@@ -1,4 +1,4 @@
-import { Schema,SchemaType } from "mongoose";
+import { model, Schema,SchemaType } from "mongoose";
 const organizationSchema= new Schema({
 
     name:{
@@ -24,6 +24,7 @@ const organizationSchema= new Schema({
 
     },
     bloodInventory:{
+<<<<<<< HEAD
         type: ,
         required:true,
     },
@@ -32,3 +33,14 @@ const organizationSchema= new Schema({
         required:true,
     }
 })
+=======
+        type: "",
+        required:true,
+    },
+    donationRequest:{
+        type:""  ,
+        required:true,
+    }
+})
+export const Orgainzation=model("Orgainzation",organizationSchema)
+>>>>>>> f962ba1eb61eb6584a7a9adbc685239ceb907d83

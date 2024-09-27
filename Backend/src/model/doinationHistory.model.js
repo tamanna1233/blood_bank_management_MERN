@@ -2,7 +2,8 @@ import { model, Schema } from "mongoose";
 
 const donationHistoryShema= new Schema({
    orgainzation:{
-    type: ""
+    type: Schema.Types.ObjectId,
+    ref:"Orgainzation"
    },
    volume:{
     type :Number,
