@@ -3,7 +3,7 @@ import React from 'react'
 const Navbar = () => {
   return (
     <div>
-      <div className="navbar bg-transparent z-[1000]">
+      <div className="navbar bg-transparent z-40">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -36,7 +36,7 @@ const Navbar = () => {
         <li><a>Find Blood</a></li>
       </ul>
     </div>
-    <a className="btn btn-ghost text-xl">Blood Donation</a>
+    <a className="btn btn-ghost text-xl text-white">Blood Donation</a>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
@@ -57,7 +57,7 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn bg-red-500 text-white">Donate Blood</a>
+    <a className="btn bg-[#991747] text-white">Donate Blood</a>
   </div>
 </div>
     </div>
