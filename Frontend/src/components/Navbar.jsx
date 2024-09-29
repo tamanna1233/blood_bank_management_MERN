@@ -1,5 +1,5 @@
 import React from 'react'
-
+import bloodlogo from "../assets/logo/blood.svg"
 const Navbar = () => {
   return (
     <div>
@@ -36,7 +36,7 @@ const Navbar = () => {
         <li><a>Find Blood</a></li>
       </ul>
     </div>
-    <a className="btn btn-ghost text-xl text-white">Blood Donation</a>
+    <a className="btn btn-ghost text-xl text-white"><img src={bloodlogo} alt="" className='hidden sm:flex w-12'/></a>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
