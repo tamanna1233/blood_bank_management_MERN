@@ -4,7 +4,7 @@ const Carousel = () => {
   return (
     <div className=' flex flex-col justify-center mx-auto w-[80%]  items-center'>
         <h1 className='text-2xl text-left  font-bold py-8' >Our Collaborators</h1>
-      <div className="carousel ">
+      <div className="carousel mb-8 ">
   <div id="slide1" className="carousel-item relative w-full">
     <img
       src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
