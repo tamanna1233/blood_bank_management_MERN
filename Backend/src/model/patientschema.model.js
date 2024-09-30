@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 
 const patientSchmea=new Schema({
     name:{type:String,required:true},
@@ -14,3 +14,4 @@ const patientSchmea=new Schema({
     matchingDonor:{type:Schema.Types.ObjectId,ref:"Donor"}
 
 },{timestamps:true})
+export const Patient=model("Patient",patientSchmea)
