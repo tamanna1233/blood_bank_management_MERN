@@ -18,7 +18,7 @@ const GetBlood = () => {
       <p className='text-[0.42rem] sm:text-xs text-center'>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
     </div>
   </div>
-
+{/* n */}
 {/* second section */}
 <div className=' flex justify-center'>
   {/* second section first section */}
