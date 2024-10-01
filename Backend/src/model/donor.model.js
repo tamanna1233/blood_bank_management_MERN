@@ -50,4 +50,4 @@ password:{
 ,{
 timestamps:true
 })
-export const Donor = model("Donor",)
+export const Donor = model("Donor",donorSchema)
