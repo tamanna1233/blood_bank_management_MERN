@@ -7,6 +7,7 @@ const GetBlood = () => {
       <div className='border shadow-black   ' >
         <h1 className='flex  text-3xl font-bold text-center'>How to Get Blood</h1>
         <div className='flex flex-col items-center   p-4 my-24'>
+            
             {/* ============================================= */}
           <div className='flex flex-wrap flex-col justify-center items-center   w-max '>
           <div className='flex flex-col  border-4 border-black w-16  rounded-full text-center  p-2 relative '>
@@ -38,7 +39,7 @@ const GetBlood = () => {
             </div>
           </div>
 
-          {/* /////////////////////////// */}
+          {/* img */}
 
 <div className=' flex  justify-center h-80 border border-black w-96 '>
     <img src={img2} alt=""  />

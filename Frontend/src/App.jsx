@@ -5,6 +5,7 @@ import Mission from './components/Mission'
 import Carousel from './components/Carousel'
 import GetBlood from './components/GetBlood'
 import Footer from './components/Footer'
+import Donor_Register from './components/Donor_Register'
 
 const App = () => {
   return (
@@ -16,6 +17,8 @@ const App = () => {
       <GetBlood/>
 
       <Footer/>
+      <Donor_Register/>
+
     </div>
   )
 }

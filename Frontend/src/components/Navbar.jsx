@@ -47,7 +47,7 @@ const Navbar = () => {
         <details>
           <summary>Register</summary>
           <ul className="p-2">
-            <li><a>Donor</a></li>
+            <li><a href=''>Donor</a></li>
             <li><a>Patient</a></li>
             <li><a href="">organization</a></li>
           </ul>
