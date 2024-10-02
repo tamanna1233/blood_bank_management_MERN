@@ -8,8 +8,13 @@ const App =lazy(()=>import("../App"))
 const Register=lazy(()=>import("../components/Donor_Register")) 
 const router=createBrowserRouter([
     {path:"/",
-        element:<Suspense><App/> <Home/> <Carousel/> <GetBlood/> <Footer/></Suspense>,
+        element:<Suspense><App/></Suspense>,
         children:[
+            {
+                path:"/",
+                element:<div><Home/> <Carousel/> <GetBlood/> </div>
+            },
+
             {
 path:"/Donor_Register",
 element:<div><Register/></div>
