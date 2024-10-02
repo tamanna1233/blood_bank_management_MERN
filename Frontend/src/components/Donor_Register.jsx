@@ -30,7 +30,7 @@ const Donor_Register = () => {
 
   return (
     
-    <div className="w-[80%] mx-auto p-6 bg-gray-100 rounded-lg shadow-lg">
+    <div className="w-[80%] mx-auto py-8 bg-gray-400 rounded-lg shadow-lg">
         <div className='bg-[#6A0B37] text-white text-2xl font-bold p-4 '>
             <h1>Register as Donor</h1>
         </div>

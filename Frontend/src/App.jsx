@@ -14,13 +14,13 @@ const App = () => {
   return (
     <div>
       <Navbar/>
-      <Home/>
+      {/* <Home/>
       <Mission/>
       <Carousel/>
       <GetBlood/>
-      {/* <Donor_Register/> */}
-{/* <Organization_register/> */}
-<Find_Blood/>
+    <Donor_Register/> 
+ <Organization_register/> 
+<Find_Blood/> */}
       <Outlet/>
       <Footer/>
 

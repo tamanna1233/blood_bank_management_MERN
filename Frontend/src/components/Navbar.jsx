@@ -55,11 +55,11 @@ const Navbar = () => {
           </ul>
         </details>
       </li>
-      <li><Link to=''>Find Blood</Link></li>
+      <li><Link to='/find_blood'>Find Blood</Link></li>
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn bg-[#991747] text-white">Donate Blood</a>
+    <Link to="/Donor_Register" className="btn bg-[#991747] text-white">Donate Blood</Link>
   </div>
 </div>
     </div>
