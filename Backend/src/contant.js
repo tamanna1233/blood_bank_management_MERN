@@ -1,0 +1,1 @@
+export const dbname="blood_bank"
