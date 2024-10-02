@@ -1,73 +1,56 @@
 import React from 'react'
-import img1 from '../assets/logo/bi_pencil-square.svg'
+// import img1 from '../assets/logo/bi_pencil-square.svg'
 import img2 from '../assets/logo/pngwing 1.svg'
 const GetBlood = () => {
   return (
-    <div>
-      <div className='border shadow-black   ' >
-        <h1 className='flex  text-3xl font-bold text-center'>How to Get Blood</h1>
-        <div className='flex flex-col items-center   p-4 my-24'>
-            
-            {/* ============================================= */}
-          <div className='flex flex-wrap flex-col justify-center items-center   w-max '>
-          <div className='flex flex-col  border-4 border-black w-16  rounded-full text-center  p-2 relative '>
-                <h1 className='font-bold text-2xl' >1</h1>
-                <div className='bg-white rounded-full border border-black w-56 h-56  p-8
-                  absolute '>
-                    <div className='rounded-full'>
-                        <img src={img1} alt="" className='w-16 m-auto '/>
-                    </div>
-                    <p className=''>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
 
-                </div>
-            </div>
-          </div>
-          </div>
-{/* ========================================== */}
-<div className='flex  justify-center flex-wrap  items-center '>
-<div className='flex    w-max '>
-          <div className='flex flex-col  border-4 border-black   rounded-full text-center w-16 p-2 relative '>
-                <h1 className='font-bold text-2xl' >2</h1>
-                <div className='bg-white rounded-full border border-black w-56 h-56  p-8
-                  absolute '>
-                    <div className='rounded-full'>
-                        <img src={img1} alt="" className='w-16 m-auto '/>
-                    </div>
-                    <p className=''>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+<>
+<div className='flex flex-col items-center justify-center border-black border  gap-12 py-8 flex-wrap'>
+<span className='text-center font-bold font-serif text-3xl'>HOW TO GET BLOOD </span>
 
-                </div>
-            </div>
-          </div>
+{/* first section */}
+  <div className='flex justify-center  '>
+    <div className='h-6 sm:h-10 w-6 sm:w-10 rounded-full border -z-10 bg-black border-black text-center translate-x-4 sm:translate-x-11 font-bold'>1</div>
+    <div className='w-20 md:w-52 h-20 md:h-52 border gap-y-2 bg-white border-black rounded-full flex flex-col items-center justify-center flex-wrap'>
+    <FaPenToSquare size={35} className='text-red-500 w-6 sm:' />
+      <p className='text-[0.42rem] sm:text-xs text-center'>register your details</p>
+    </div>
+  </div>
+{/* n */}
+{/* second section */}
+<div className=' flex justify-center items-center'>
+  {/* second section first section */}
+<div className='flex justify-center '>
+<div className='h-6 sm:h-10 w-6 sm:w-10 rounded-full border -z-10 bg-black border-black text-center translate-x-4 sm:translate-x-11 font-bold'>2</div>
+    <div className='w-20 md:w-52 h-20 md:h-52 gap-y-2 bg-white border border-black rounded-full flex flex-col items-center justify-center  flex-wrap'>
+    <FiCheckCircle  size={35} className='text-green-500 w-6 sm:'/>
+          <p className=' text-[0.42rem] sm:text-xs text-center'>verify you details</p>
+    </div>
+  </div>
+  {/* second section second section */}
+  <div>
+    <img src={img2} alt="" />
+  </div>
+    {/* second section third section */}
+    <div className='flex justify-center '>
+    <div className='w-20 md:w-52 h-20 md:h-52  gap-y-2 border bg-white border-black rounded-full flex flex-col items-center justify-center flex-wrap'>
+    <FaPenToSquare size={35} className='text-black w-6 sm:'/>
+      <p className='text-[0.42rem] sm:text-xs text-center'>login to the website</p>
+    </div>
+    <div className='h-6 sm:h-10 w-6 sm:w-10 rounded-full border -z-10 bg-black border-black text-center -translate-x-4 sm:-translate-x-11 font-bold'>3</div>
 
-          {/* img */}
+  </div>
+  </div>
 
-<div className=' flex  justify-center h-80 border border-black w-96 '>
-    <img src={img2} alt=""  />
 </div>
 
-          {/* ========================================== */}
 
-          <div className='flex   w-max '>
-          <div className='flex flex-col  border-4 border-black w-16  rounded-full text-center  p-2 relative '>
-                <h1 className='font-bold text-2xl'>3</h1>
-                <div className='bg-white rounded-full border border-black w-56 h-56  p-8
-                  absolute '>
-                    <div className='rounded-full'>
-                        <img src={img1} alt="" className='w-16 m-auto '/>
-                    </div>
-                    <p className=''>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
 
-                </div>
-            </div>
-          </div>
 
-          </div>
-          
 
-       
 
-      </div>
-    </div>
+</>
+   
   )
 }
 
