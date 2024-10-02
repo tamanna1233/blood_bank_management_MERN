@@ -1,5 +1,6 @@
 import React from 'react'
 import bloodlogo from "../assets/logo/blood.svg"
+import { Link } from 'react-router-dom'
 const Navbar = () => {
   return (
     <div>
@@ -28,7 +29,7 @@ const Navbar = () => {
         <li>
           <a>Register</a>
           <ul className="p-2">
-            <li><a>Donor</a></li>
+           <Link to="/Donor_Register"><li>Donor</li></Link> 
             <li><a>Patient</a></li>
             <li><a href="">Organization</a></li>
           </ul>
@@ -47,8 +48,8 @@ const Navbar = () => {
         <details>
           <summary>Register</summary>
           <ul className="p-2">
-            <li><a href=''>Donor</a></li>
-            <li><a>Patient</a></li>
+          <Link to="/Donor_Register"><li>Donor</li></Link> 
+          <li><a>Patient</a></li>
             <li><a href="">organization</a></li>
           </ul>
         </details>

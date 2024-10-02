@@ -3,7 +3,10 @@ import React from 'react'
 import img2 from '../assets/logo/pngwing 1.svg'
 import { FaPenToSquare } from "react-icons/fa6";
 import { FiCheckCircle } from "react-icons/fi";
+<<<<<<< HEAD
 
+=======
+>>>>>>> c2790a5717d7f59772d4783a7c1336e9f6f9c625
 const GetBlood = () => {
   return (
 
