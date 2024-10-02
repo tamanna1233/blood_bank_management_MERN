@@ -31,12 +31,8 @@ const Navbar = () => {
           <ul className="p-2">
           <li> <Link to="/Donor_Register">Donor</Link></li>
             <li><a>Patient</a></li>
-<<<<<<< HEAD
-            <Link to='  '><li>Organization</li></Link>
             <li><a href="">Organization</a></li>
-=======
             <li><Link to="/Organization_register">Organization </Link></li>
->>>>>>> 8d9b5e141a36906a81b6ffd1f7a900ed944b26da
           </ul>
         </li>
         <li><a>Find Blood</a></li>
@@ -59,7 +55,7 @@ const Navbar = () => {
           </ul>
         </details>
       </li>
-      <li><a>Find Blood</a></li>
+      <li><Link to=''>Find Blood</Link></li>
     </ul>
   </div>
   <div className="navbar-end">
