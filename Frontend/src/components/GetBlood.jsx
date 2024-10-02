@@ -1,6 +1,8 @@
 import React from 'react'
 // import img1 from '../assets/logo/bi_pencil-square.svg'
 import img2 from '../assets/logo/pngwing 1.svg'
+import { FaPenToSquare } from "react-icons/fa6";
+import { FiCheckCircle } from "react-icons/fi";
 const GetBlood = () => {
   return (
 
