@@ -31,6 +31,7 @@ const Navbar = () => {
           <ul className="p-2">
            <Link to="/Donor_Register"><li>Donor</li></Link> 
             <li><a>Patient</a></li>
+            <Link to='  '><li>Organization</li></Link>
             <li><a href="">Organization</a></li>
           </ul>
         </li>
