@@ -9,6 +9,7 @@ import Organization_register from './components/Organization_register'
 import Home from './components/Home'
 import Find_Blood from './components/Find_Blood'
 import { Outlet } from 'react-router-dom'
+import OtpInput from './components/Otp_Verification'
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
 <Find_Blood/> */}
       <Outlet/>
       <Footer/>
+      <OtpInput/>
 
     </div>
   )
