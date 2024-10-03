@@ -3,8 +3,8 @@ import { FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
 import logo from "../assets/logo/blood.svg"
 const Organization_register = () => {
   return (
-    <div className='  justify-center w-[80%] mx-auto p-6 bg-gray-400 rounded-lg shadow-lg'>
-       <div className='bg-[#6A0B37] text-white font-bold text-2xl p-4'>
+    <div className='  justify-center w-[80%] mx-auto my-4  bg-gray-400 rounded-lg shadow-lg'>
+       <div className='bg-[#6A0B37] w-full p-4 text-white font-bold text-2xl  rounded-t-lg'>
         <h1>Organization Register</h1>
       </div>
       <div className='w-full flex justify-center items-center'>
