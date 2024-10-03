@@ -15,7 +15,7 @@ const GetBlood = () => {
     <div className='h-6 sm:h-10 w-6 sm:w-10 rounded-full border -z-10 bg-black border-black text-center translate-x-4 sm:translate-x-11 font-bold'>1</div>
     <div className='w-20 md:w-52 h-20 md:h-52 border gap-y-2 bg-white border-black rounded-full flex flex-col items-center justify-center flex-wrap'>
     <FaPenToSquare size={35} className='text-red-500 w-6 sm:' />
-      <p className='text-[0.42rem] sm:text-xs text-center'>register your details</p>
+      <p className='text-[0.42rem] sm:text-xs text-center text-black'>register your details</p>
     </div>
   </div>
 {/* n */}
@@ -26,7 +26,7 @@ const GetBlood = () => {
 <div className='h-6 sm:h-10 w-6 sm:w-10 rounded-full border -z-10 bg-black border-black text-center translate-x-4 sm:translate-x-11 font-bold'>2</div>
     <div className='w-20 md:w-52 h-20 md:h-52 gap-y-2 bg-white border border-black rounded-full flex flex-col items-center justify-center  flex-wrap'>
     <FiCheckCircle  size={35} className='text-green-500 w-6 sm:'/>
-          <p className=' text-[0.42rem] sm:text-xs text-center'>verify you details</p>
+          <p className=' text-[0.42rem] sm:text-xs text-center text-black'>verify you details</p>
     </div>
   </div>
   {/* second section second section */}
@@ -37,7 +37,7 @@ const GetBlood = () => {
     <div className='flex justify-center '>
     <div className='w-20 md:w-52 h-20 md:h-52  gap-y-2 border bg-white border-black rounded-full flex flex-col items-center justify-center flex-wrap'>
     <FaPenToSquare size={35} className='text-black w-6 sm:'/>
-      <p className='text-[0.42rem] sm:text-xs text-center'>login to the website</p>
+      <p className='text-[0.42rem] sm:text-xs text-center text-black'>login to the website</p>
     </div>
     <div className='h-6 sm:h-10 w-6 sm:w-10 rounded-full border -z-10 bg-black border-black text-center -translate-x-4 sm:-translate-x-11 font-bold'>3</div>
 

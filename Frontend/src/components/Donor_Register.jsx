@@ -30,17 +30,17 @@ const Donor_Register = () => {
 
   return (
     
-    <div className="w-[80%] mx-auto py-8 bg-gray-400 rounded-lg shadow-lg">
-        <div className='bg-[#6A0B37] text-white text-2xl font-bold p-4 '>
+    <div className="w-2/3 mx-auto my-8 bg-gray-100 rounded-lg shadow-lg">
+        <div className='bg-[#6A0B37] text-white text-2xl rounded-t-lg font-bold p-4 '>
             <h1>Register as Donor</h1>
         </div>
-      <form className="space-y-6">
+      <form className="space-y-6 px-4 sm:px-12">
         
         {/* Name Row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           <div className="flex flex-col">
             <label htmlFor="firstName" className="mb-1 text-sm font-medium text-gray-700">First Name</label>
-            <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
+            <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className="p-2 border w-auto border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
           </div>
           <div className="flex flex-col">
             <label htmlFor="lastName" className="mb-1 text-sm font-medium text-gray-700">Last Name</label>
@@ -64,7 +64,7 @@ const Donor_Register = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex flex-col">
             <label htmlFor="age" className="mb-1 text-sm font-medium text-gray-700">Age</label>
-            <input type="number" id="age" name="age" value={formData.age} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
+            <input type="number" id="age"  name="age" value={formData.age} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
           </div>
           <div className="flex flex-col">
             <label htmlFor="bloodGroup" className="mb-1 text-sm font-medium text-gray-700">Blood Group</label>
@@ -118,7 +118,7 @@ const Donor_Register = () => {
         {/* Checkbox */}
         <div className="flex items-center justify-center">
           <input type="checkbox" id="agreement" name="agreement" checked={formData.agreement} onChange={handleChange} className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black" required />
-          <label htmlFor="agreement" className="ml-2 text-sm text-gray-700">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</label>
+          <label htmlFor="agreement" className="ml-2 text-sm text-gray-700">Accept our term and condition</label>
         </div>
 
         {/* Input Type Summary */}
