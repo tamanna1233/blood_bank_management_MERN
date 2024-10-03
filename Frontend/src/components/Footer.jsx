@@ -2,7 +2,7 @@ import React from 'react'
 import  logo from "../assets/logo/blood.svg"
 const Footer = () => {
   return (
-    <div className='bg-base-200 text-white'>
+    <div className='bg-base-300 text-white'>
 
 <div className='flex justify-end w-full py-2 items-center px-8'>
 <img src={logo} alt="" className='w-12'/>
@@ -13,7 +13,7 @@ const Footer = () => {
  
 </div>
 <hr  />
-      <footer className="footer bg-base-200  p-10 text-white">
+      <footer className="footer bg-base-300  p-10 text-white">
         
   <aside>
     <img src={logo} alt="" className='w-24' />
