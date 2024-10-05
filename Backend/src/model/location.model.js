@@ -1,19 +1,30 @@
 import { model, Schema } from "mongoose";
 
 const locationSchema= new Schema({
- type :{
-    type:String,
-    default: "point"
+ address:{
+   type:String,  
+   required:true
  },
- coordinates:{
-    type:Number,
-    required:true
-
- }
+ city:{
+ type:String,
+ required:true
+ },
+ state:{
+   type:String,
+   required:true
+ },
+ country:{
+   type:String,
+   required:true
+ },
+ pinCode:{
+   type:String,
+   required:true
+ },
+ 
 },
     {
         timestamps:true
 
 })
-locationSchema.index({coordinates:"2dsphere"})
 export const Location= model("Location",locationSchema)

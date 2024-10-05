@@ -11,7 +11,9 @@ const patientSchmea=new Schema({
         type:Schema.Types.ObjectId,
         ref:"Location"
     },
-    matchingDonor:{type:Schema.Types.ObjectId,ref:"Donor"}
+    matchingDonor:{type:Schema.Types.ObjectId,ref:"Donor"},
+    otp:{type:String},
+    otpExpire:{type:String}
 
 },{timestamps:true})
 export const Patient=model("Patient",patientSchmea)
