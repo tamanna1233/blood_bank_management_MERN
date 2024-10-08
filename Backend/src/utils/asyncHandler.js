@@ -1,5 +1,5 @@
 
-const asyncHandler =(fn)=async(res,req,next)=>{
+const asyncHandler =(fn)=>async(res,req,next)=>{
     try {
         await fn(res,req,next)
         

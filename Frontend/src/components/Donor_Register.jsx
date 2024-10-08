@@ -28,6 +28,16 @@ const Donor_Register = () => {
     });
   };
 
+const data={
+  name:`${formData.firstName} ${formData.lastName}`,
+  age: formData.age,
+  phone:formData.phone,
+  email:formData.email,
+  location:`address:${formData.addressLine1} city:${formData.city} state:${formData.state} zip:${formData.zip} country:${formData.country}`
+
+}
+console.log( data)
+
   return (
     
     <div className="w-2/3 mx-auto my-8 bg-gray-100 rounded-lg shadow-lg">
@@ -64,7 +74,7 @@ const Donor_Register = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex flex-col">
             <label htmlFor="age" className="mb-1 text-sm font-medium text-gray-700">Age</label>
-            <input type="number" id="age"  name="age" value={formData.age} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
+            <input type="number" id="age"  min="18" max="60" name="age" value={formData.age} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
           </div>
           <div className="flex flex-col">
             <label htmlFor="bloodGroup" className="mb-1 text-sm font-medium text-gray-700">Blood Group</label>
@@ -134,10 +144,13 @@ const Donor_Register = () => {
         </div>
 
         {/* Submit Button */}
-        <div className='flex justify-end'>
-        <button type="submit" className="flex gap-2 items-right p-2 bg-black text-white font-semibold rounded-md hover:bg-gray-700 transition">
+        <div className='flex justify-end py-2'>
+       {formData.agreement?
+        <button type="submit"  className="flex gap-2 items-right p-2 bg-black text-white font-semibold rounded-md hover:bg-gray-700 transition">
           Submit  <FaRegCheckCircle className='' size={23}/>
-        </button>
+        </button> : <button type="submit" disabled  className="flex gap-2 items-right p-2 bg-white border border-black  text-black font-semibold rounded-md hover:bg-gray-700 transition cursor-not-allowed">
+          Submit  <FaRegCheckCircle className='' size={23}/>
+        </button> }
         </div>
       </form>
     </div>

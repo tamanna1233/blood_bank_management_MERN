@@ -30,21 +30,22 @@ bloodType:{
     required:true
 
 },
-healthInfo :{
-    type :String,
-    required:true
-},
-lastDonation:{
- type:Date,
- required:true
-},
-eligbleForDonation:{
-    type:Boolean,
-},
-password:{
-    type:String,
-    required:true,
-}
+
+// healthInfo :{
+//     type :String,
+//     required:true
+// },
+// lastDonation:{
+//  type:Date,
+//  required:true
+// },
+// eligbleForDonation:{
+//     type:Boolean,
+// },
+// password:{
+//     type:String,
+//     required:true,
+// }
 
 }
 ,{

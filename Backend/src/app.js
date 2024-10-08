@@ -10,4 +10,8 @@ app.use(express.json({limit:"16kb"}))
 app.use(express.urlencoded({extended:true,limit:"16kb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
+
+
+import patientRouter from "./routers/patient.routes.js"
+app.use("/api/v1/patient/",patientRouter)                                              
 export {app}

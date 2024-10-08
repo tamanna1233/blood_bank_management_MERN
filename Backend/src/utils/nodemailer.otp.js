@@ -1,31 +1,40 @@
-import { apiError } from "../utils/apiError";
+import { apiError } from "./apiError.js";
 import crypto from "crypto"
-import {Patient} from "../model/patientschema.model"
-import nodemailerConifig from "../utils/nodemailler";
+import {Patient} from "../model/patientschema.model.js"
+import nodemailerConifig from "./nodemailler.js";
 export const sendOtp =async(email)=>{
+  console.log(email)
   if(!email){
     throw new apiError(400,"email required")
   }
 
   const otp =  crypto.randomInt(1000,9000).toString()
   const otpExpire=Date.now()+15*60*1000
-  const patient=Patient.findone({email})
+  const patient= await Patient.findOne({email})
   if (!patient) {
     throw new apiError(400,"patient not found")
     
   }
   patient.otp=otp
   patient.otpExpire=otpExpire
- await patient.save()
+ await  patient.save()
  const mailopton={
     from:process.env.EMAIL,
     to:email,
     subject:"your otp code",
-    text:`you one timme password id ${otp} is valid for 15 mins `
- }
- await nodemailerConifig.sendMail(mailopton)
+    text:`you one timme password id ${otp} is valid for 15 mins `,
+    html: `<h1>Your OTP Code</h1>
+    <p>Your one-time password is <strong>${otp}</strong>. It is valid for <strong>15 minutes</strong>.</p>`
 
- return 
+ }
+ try {
+  
+   await nodemailerConifig.sendMail(mailopton)
+   return "email send scessufully"
+ } catch (error) {
+  throw apiError(400,"email not sent ")
+ }
+
 }
 
 export const verifyotp=async(email,otp)=>{
@@ -40,7 +49,7 @@ export const verifyotp=async(email,otp)=>{
     }
 
     if(patient.otp!==otp){
-        throw apiError(400,"invaild otp")
+        throw new apiError(400,"invaild otp")
     }
     if(patient.otpExpire<Date.now()){
         throw new apiError(401,"your otp expire ")
