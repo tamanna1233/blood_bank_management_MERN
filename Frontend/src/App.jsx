@@ -10,6 +10,7 @@ import Home from './components/Home'
 import Find_Blood from './components/Find_Blood'
 import { Outlet } from 'react-router-dom'
 import OtpInput from './components/Otp_Verification'
+import Details from './components/Details'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
       <Outlet/>
       <Footer/>
       <OtpInput/>
+      <Details/>
 
     </div>
   )
