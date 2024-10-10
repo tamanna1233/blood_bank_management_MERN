@@ -25,7 +25,7 @@ const Details = () => {
             </select>
 <br />
             {/* ======current location ==== */}
-            <button className='bg-black text-white  font-bold text-xl  rounded-xl p-1  w-[50%] mx-auto hover:bg-gray-500 hover:border border-black'>Current Location</button>
+            {/* <button className='bg-black text-white  font-bold text-xl  rounded-xl p-1  w-[50%] mx-auto hover:bg-gray-500 hover:border border-black'>Current Location</button> */}
             <br />
             <hr />
             <h1 className='text-center'>OR</h1>
