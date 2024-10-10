@@ -38,10 +38,10 @@ const Details = () => {
            </div>
            <button className='bg-black text-white text-lg font-bold rounded-lg mx-auto px-2 p-1 hover:bg-gray-500 hover:border border-black'>Proceed</button>
         </form>
-        <div className="join join-vertical  border border-black rounded-2xl lg:join-horizontal ">
+        {/* <div className="join join-vertical  border border-black rounded-2xl lg:join-horizontal ">
   <button className="hover:bg-black hover:text-white rounded-2xl p-1 active:bg-black">Blood Donors</button>
   <button className="hover:bg-black hover:text-white  rounded-2xl p-1 active:bg-black">Blood Banks</button>
-</div>
+</div> */}
       </div>
     </div>
   )
