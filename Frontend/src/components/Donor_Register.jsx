@@ -16,6 +16,7 @@ const Donor_Register = () => {
     state: '',
     zip: '',
     country: '',
+    password:'',
     agreement: false
   });
 
@@ -33,8 +34,9 @@ const data={
   age: formData.age,
   phone:formData.phone,
   email:formData.email,
-  location:`address:${formData.addressLine1} city:${formData.city} state:${formData.state} zip:${formData.zip} country:${formData.country}`
-
+  location:`address:${formData.addressLine1} city:${formData.city} state:${formData.state} zip:${formData.zip} country:${formData.country}`,
+  bloodType:formData.bloodGroup,
+  password:formData.password
 }
 console.log( data)
 
@@ -92,7 +94,10 @@ console.log( data)
           </div>
         </div>
 
-        
+        <div className="flex flex-col">
+        <label htmlFor="password" className="mb-1 text-sm font-medium text-gray-700">Password</label>
+          <input type="password" id="password" name="password" value={formData.password} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500"/>
+        </div>
 
         {/* Address Summary */}
         <div className="space-y-4">

@@ -14,11 +14,7 @@ const adminSchema= new Schema({
         type:String,
         required:true
     },
-    role:{
-        
-       type:String,
-       required:true
-    },
+    
     aprovedorganization:{
         type:Schema.Types.ObjectId,
         ref:"Orgainzation"
