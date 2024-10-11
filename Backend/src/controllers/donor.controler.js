@@ -125,4 +125,21 @@ const logout=asyncHandler(async(req,res)=>{
    
   })
 
-  export{login,logout,donorregister}
+const updateAccountDetail=asyncHandler(async(req,res)=>{
+  const {email,phone,location,age}=req.body
+  
+ const user= await  Donor.findByIdAndUpdate(req.user._id,{
+  $set:{
+    email,
+    age,
+    phone,
+    location
+  }
+ },{
+  new:true
+ })
+  res.status(200)
+  .json(new apiResponse(200,{},"user deatail updated suceessfully"))
+})
+
+  export{login,logout,donorregister,updateAccountDetail}
