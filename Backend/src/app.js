@@ -13,5 +13,8 @@ app.use(cookieParser())
 
 
 import patientRouter from "./routers/patient.routes.js"
-app.use("/api/v1/patient/",patientRouter)                                              
+import donorRouter from "./routers/donor.routes.js"
+
+app.use("/api/v1/patient/",patientRouter)   
+app.use("/api/v1/donor/",donorRouter)                                           
 export {app}
