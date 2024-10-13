@@ -29,8 +29,9 @@ donationHistory:{
     ref:"DonationHistory"
 },
 bloodType:{
-    type:String,
-    required:true
+    type: String,
+    enum: ['A_pos', 'A_neg', 'B_pos', 'B_neg', 'O_pos', 'O_neg', 'AB_pos', 'AB_neg'],
+    required: true,
 
 },
 password:{

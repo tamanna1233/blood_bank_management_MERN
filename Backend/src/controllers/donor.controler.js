@@ -45,6 +45,8 @@ const generateAccessTokenAndRefreshToken=async(userID)=>{
         locationId = savedLocation._id; // Use new location's _id
       }
     
+   
+
   
     // Create the donor
     const donor = new Donor({
@@ -53,7 +55,7 @@ const generateAccessTokenAndRefreshToken=async(userID)=>{
       phone,
       age,
       location: locationId,  // Reference the location _id
-      bloodType,
+     bloodType,
       password,  // Password will be hashed in the schema middleware
     });
   
