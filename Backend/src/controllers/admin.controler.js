@@ -5,14 +5,17 @@ import {Admin} from '../model/admin.model.js'
 import { Donor } from '../model/donor.model.js';
 
 const generateAccessTokenAndRefreshToken=async(userID)=>{
+    console.log(userID)
     try {
-      const patient=  await Admin.findById(userID)
-     const accessToken=  Admin.generateAccessToken()
-      const refreshToken=  Admin.generateRefreshToken()
-      patient.refreshToken=refreshToken
+      const user=  await Admin.findById(userID)
+ console.log(user)
+     const accessToken=  user.generateAccessToken()
+     console.log(accessToken)
+      const refreshToken=  user.generateRefreshToken()
+      user.refreshToken=refreshToken
       
   
-     await Donor.save({validateBeforeSave:false})
+     await user.save({validateBeforeSave:false})
   
      return {accessToken,refreshToken}
   
@@ -41,6 +44,9 @@ if(!admin){
  return res.status(200)
 .json(new apiResponse(201,{},"admin is successfully register"))
 })
+
+
+
 
 const login =asyncHandler(async(req,res)=>{
 
@@ -79,20 +85,40 @@ const getCurrentUser=asyncHandler(async(req,res)=>{
   })
 
 
-const  donorList=asyncHandler(async(req,res)=>{
-    const donor=Donor.aggregate([{$project:{
-        name:1,
-        email:1,
-        phone:1,
-        bloodType:1,
-        address:"$location"
-    }}])
-     if (!donor) {
-         throw new apiError(400,"donors not found")
-     }
+  const donorList = asyncHandler(async (req, res) => {
+    const donors = await Donor.aggregate([
 
-     return res.status(200).json(new apiResponse(200,{donor},"success"))
-})
+        {$lookup:{
+            from:"locations",
+            localField:"location",
+            foreignField:"_id",
+            as:"locationdata"
+        }},
+        {
+            $unwind: {
+                path: "$locationdata",
+                preserveNullAndEmptyArrays: true // Handle cases where there's no matching location
+            }
+        },        {
+            $project: {
+                name: 1,
+                email: 1,
+                phone: 1,
+                bloodType: 1,
+                address: "$locationdata.address",
+               _id:0
+                
+            } 
+            ,
+        },
+    ]);
+
+    if (!donors || donors.length === 0) {
+        throw new apiError(400, "Donors not found");
+    }
+
+    return res.status(200).json(new apiResponse(200, { donors }, "success"));
+});
 
 export{
     adminregister,

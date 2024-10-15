@@ -3,23 +3,12 @@ import { FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
 import {useForm} from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-
+import {useDonorApi} from "../api/Donor.api"
 const Donor_Register = () => {
 
-const {register,handleSubmit}=useForm();
+const {handleSubmit}=useForm();
 
-const registerHandler =async (data)=>{
-  try{
-    await register(data)
-    .then((res)=> console.log(res))
-    toast.success('register successful!');
-    // navigate('')
-    }catch(error){
-      console.log(error)
-      toast.error('register failed.please try again.')
-    
-  }
-};
+
 
   // State to hold form data
   const [formData, setFormData] = useState({
@@ -58,6 +47,20 @@ const data={
   password:formData?.password
 }
 console.log( data)
+const {donorRegister}=useDonorApi()
+const registerHandler =async ()=>{
+
+    await donorRegister(data)
+    .then((res)=>{
+      console.log(res)
+      toast.success(res?.message)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+    // navigate('')
+    
+};
 
   return (
     
@@ -65,7 +68,7 @@ console.log( data)
         <div className='bg-[#6A0B37] text-white text-2xl rounded-t-lg font-bold p-4 '>
             <h1>Register as Donor</h1>
         </div>
-      <form onSubmit={handleSubmit(registerHandler)} className="space-y-6 px-4 sm:px-12">
+      <form   onSubmit={handleSubmit(registerHandler)}className="space-y-6 px-4 sm:px-12">
         
         {/* Name Row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
@@ -170,7 +173,7 @@ console.log( data)
         {/* Submit Button */}
         <div className='flex justify-end py-2'>
        {formData?.agreement?
-        <button type="submit"  className="flex gap-2 items-right p-2 bg-black text-white font-semibold rounded-md hover:bg-gray-700 transition">
+        <button type="submit"   className="flex gap-2 items-right p-2 bg-black text-white font-semibold rounded-md hover:bg-gray-700 transition">
           Submit  <FaRegCheckCircle className='' size={23}/>
         </button> : <button type="submit" disabled  className="flex gap-2 items-right p-2 bg-white border border-black  text-black font-semibold rounded-md hover:bg-gray-700 transition cursor-not-allowed">
           Submit  <FaRegCheckCircle className='' size={23}/>

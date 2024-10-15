@@ -30,7 +30,7 @@ const generateAccessTokenAndRefreshToken=async(userID)=>{
     // Check if the user is already registered
     const user = await Donor.findOne({ email });
     if (user) {
-      throw new apiError(400, "User already registered");
+      throw new apiError(400, "User already registered with this email");
     }
   
     // Create or find the location document
