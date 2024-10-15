@@ -80,6 +80,8 @@ const verifyPatient = async (user) => {
                                         }
                                     }
 
+
+                                    return {findBlood,logout, verifyPatient,loginPatient}
+
                                 }
-                            return {findBlood,logout, verifyPatient,loginPatient}
 
