@@ -1,7 +1,26 @@
 import React, { useState } from 'react';
 import { FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
+import {useForm} from 'react-hook-form';
+import toast from 'react-hot-toast';
+
 
 const Donor_Register = () => {
+
+const {register,handleSubmit}=useForm();
+
+const registerHandler =async (data)=>{
+  try{
+    await register(data)
+    .then((res)=> console.log(res))
+    toast.success('register successful!');
+    // navigate('')
+    }catch(error){
+      console.log(error)
+      toast.error('register failed.please try again.')
+    
+  }
+};
+
   // State to hold form data
   const [formData, setFormData] = useState({
     firstName: '',
@@ -46,7 +65,7 @@ console.log( data)
         <div className='bg-[#6A0B37] text-white text-2xl rounded-t-lg font-bold p-4 '>
             <h1>Register as Donor</h1>
         </div>
-      <form className="space-y-6 px-4 sm:px-12">
+      <form onSubmit={handleSubmit(registerHandler)} className="space-y-6 px-4 sm:px-12">
         
         {/* Name Row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
@@ -96,7 +115,7 @@ console.log( data)
 
         <div className="flex flex-col">
         <label htmlFor="password" className="mb-1 text-sm font-medium text-gray-700">Password</label>
-          <input type="password" id="password" name="password" value={formData?.password} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500"/>
+          <input type="password" id="password" name="password" value={formData?.password} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500"/>
         </div>
 
         {/* Address Summary */}
@@ -168,97 +187,3 @@ export default Donor_Register;
 
 
 
-// import React from 'react';
-
-// const ResponsiveForm = () => {
-//   return (
-//     <div className="max-w-lg mx-auto p-6 bg-gray-100 rounded-lg shadow-lg">
-//       <form className="space-y-6">
-        
-//         {/* Name Row */}
-//         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-//           <div className="flex flex-col">
-//             <label htmlFor="firstName" className="mb-1 text-sm font-medium text-gray-700">First Name</label>
-//             <input type="text" id="firstName" name="firstName" className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-//           </div>
-//           <div className="flex flex-col">
-//             <label htmlFor="lastName" className="mb-1 text-sm font-medium text-gray-700">Last Name</label>
-//             <input type="text" id="lastName" name="lastName" className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-//           </div>
-//         </div>
-        
-//         {/* Phone Number */}
-//         <div className="flex flex-col">
-//           <label htmlFor="phone" className="mb-1 text-sm font-medium text-gray-700">Phone Number</label>
-//           <input type="tel" id="phone" name="phone" className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-//         </div>
-
-//         {/* Email */}
-//         <div className="flex flex-col">
-//           <label htmlFor="email" className="mb-1 text-sm font-medium text-gray-700">Email Address</label>
-//           <input type="email" id="email" name="email" className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-//         </div>
-
-
-//         {/*Address   */}
-//         <div className="flex flex-col">
-//             <label htmlFor="address" className="mb-1 text-sm font-medium text-gray-700">Adress</label>
-//             <input type="summary" id="firstName" name="address" className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-//           </div>
-        
-//         {/* Age and Blood Group */}
-//         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-//           <div className="flex flex-col">
-//             <label htmlFor="age" className="mb-1 text-sm font-medium text-gray-700">Age</label>
-//             <input type="number" id="age" name="age" className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-//           </div>
-//           <div className="flex flex-col">
-//           <label htmlFor="bloodGroup" className="mb-1 text-sm font-medium text-gray-700">Blood Group</label>
-//             <select id="bloodGroup" name="bloodGroup" className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required>
-//               <option value="">Select Blood Group</option>
-//               <option value="A+">A+</option>
-//               <option value="A-">A-</option>
-//               <option value="B+">B+</option>
-//               <option value="B-">B-</option>
-//               <option value="AB+">AB+</option>
-//               <option value="AB-">AB-</option>
-//               <option value="O+">O+</option>
-//               <option value="O-">O-</option>
-//             </select>
-//           </div>
-//         </div>
-        
-//         {/* District */}
-//         <div className="flex flex-col">
-//           <label htmlFor="district" className="mb-1 text-sm font-medium text-gray-700">District</label>
-//           <input type="text" id="district" name="district" className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-//         </div>
-        
-//         {/* State and Pin Code */}
-//         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-//           <div className="flex flex-col">
-//             <label htmlFor="state" className="mb-1 text-sm font-medium text-gray-700">State</label>
-//             <input type="text" id="state" name="state" className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-//           </div>
-//           <div className="flex flex-col">
-//             <label htmlFor="pinCode" className="mb-1 text-sm font-medium text-gray-700">Pin Code</label>
-//             <input type="text" id="pinCode" name="pinCode" className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-//           </div>
-//         </div>
-
-//          {/* Checkbox in the center */}
-//          <div className="flex items-center justify-center">
-//           <input type="checkbox" id="agreement" name="agreement" className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" required />
-//           <label htmlFor="agreement" className="ml-2 text-sm text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit.</label>
-//         </div>
-
-//         {/* Submit Button */}
-//         <button type="submit" className="w-full p-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition">
-//           Submit
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default ResponsiveForm;

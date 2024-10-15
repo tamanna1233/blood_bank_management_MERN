@@ -79,9 +79,6 @@ const verifyPatient = async (user) => {
                                         return (error.message)
                                         }
                                     }
-
-
                                     return {findBlood,logout, verifyPatient,loginPatient}
 
                                 }
-
