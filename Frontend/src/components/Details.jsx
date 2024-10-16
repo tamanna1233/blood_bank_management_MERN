@@ -3,7 +3,7 @@ import React from 'react'
 import logo from '../assets/logo/blood.svg'
 const Details = () => {
   return (
-    <div className='p-8 flex justify-center w-[80%] mx-auto  my-8  bg-gray-300 rounded-lg shadow-lg shadow-gray-700'>
+    <div className='p-8 flex justify-center w-[60%] mx-auto  my-8  bg-gray-300 rounded-lg shadow-lg shadow-gray-700'>
         <div className=' hidden sm:flex h-96   '>
             <img src={logo} alt="" />
         </div>
@@ -14,14 +14,14 @@ const Details = () => {
         <label htmlFor="">Blood Type</label>
         <select name="" id="" className='border border-black rounded-lg m-1  '>
             <option value="">Select Blood Type</option>
-            <option value="">A+</option>
-            <option value="">A-</option>
-            <option value="">B+</option>
-            <option value="">B-</option>
-            <option value="">AB+</option>
-            <option value="">AB-</option>
-            <option value="">O+</option>
-            <option value="">O-</option>
+            <option value="A_pos">A_pos</option>
+            <option value="A_neg">A_neg</option>
+            <option value="B_pos">B_pos</option>
+            <option value="B_neg">B_neg</option>
+            <option value="B_neg">AB_neg</option>
+            <option value="AB_pos">AB_pos</option>
+            <option value="O_pos">O_pos</option>
+            <option value="O_neg">O_neg</option>
             </select>
 <br />
             {/* ======current location ==== */}

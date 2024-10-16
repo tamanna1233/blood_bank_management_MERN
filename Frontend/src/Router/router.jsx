@@ -9,6 +9,7 @@ const  GetBlood =lazy(()=>import("../components/GetBlood"))
 const App =lazy(()=>import("../App"))
 const Organization_register=lazy(()=>import('../components/Organization_register'))
 const Mission =lazy(()=>import("../components/Mission"))
+const Donor_Register=lazy(()=>import("../components/Donor_Register"))
 const router=createBrowserRouter([
     {path:"/",
         element:<Suspense><App/></Suspense>,
@@ -20,7 +21,7 @@ const router=createBrowserRouter([
 
             {
          path:"/Donor_Register",
-         element:<div><Register/></div>
+         element:<Donor_Register/>
 
         },
         {
