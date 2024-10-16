@@ -50,7 +50,7 @@ const Navbar = () => {
           <summary>Register</summary>
           <ul className="p-2">
           <li> <Link to="/Donor_Register">Donor</Link></li>
-            <li><a>Patient</a></li>
+            <li><Link to="/find_blood">Patient</Link></li>
             <li><Link to="/Organization_register">Organization </Link></li>
           </ul>
         </details>

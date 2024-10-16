@@ -119,10 +119,35 @@ const getCurrentUser=asyncHandler(async(req,res)=>{
 
     return res.status(200).json(new apiResponse(200, { donors }, "success"));
 });
+const logout=asyncHandler(async(req,res)=>{
+    await Admin.findByIdAndUpdate(
+      req.user._id,
+      {
+          $unset:{
+              refreshToken:1,
+              
+          }
+      },
+      {
+          new:true
+      }
+  )
+  const options={
+      httpOnly:true,
+      secure:true
+   }
+   return res.status(200)
+   .clearCookie("accessToken",options)
+   .clearCookie('refreshToken',options)
+   .json(new apiResponse(200,{},'user logged out'))
+   
+  })
+
 
 export{
     adminregister,
     login,
     getCurrentUser,
-    donorList
+    donorList,
+    logout,
 }
