@@ -1,5 +1,6 @@
 import React from 'react'
 import  logo from "../assets/logo/blood.svg"
+import { Link } from 'react-router-dom'
 const Footer = () => {
   return (
     <div className='bg-gray-300 text-black'>
@@ -7,7 +8,7 @@ const Footer = () => {
 <div className='flex justify-end w-full py-2 items-center px-8'>
 <img src={logo} alt="" className='w-12'/>
 <div className=''>
-    <span className=' flex  items-center gap-x-3'> ready to get started ? <button className=' bg-[#991747] text-white font-bold px-4 py-2 rounded-lg '>Donate</button></span>
+    <span className=' flex  items-center gap-x-3'> ready to get started ? <button className=' bg-[#991747] text-white font-bold px-4 py-2 rounded-lg '><Link to='/Donor_Register'>Donate Blood</Link></button></span>
 </div>
 
  
