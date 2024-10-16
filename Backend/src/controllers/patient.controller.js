@@ -25,6 +25,7 @@ const generateAccessTokenAndRefreshToken = async (userID) => {
 // Step 1: Send OTP for login
 const login = asyncHandler(async (req, res) => {
   const { email } = req.body;
+  console.log(email)
 
   if (!email) {
     throw new apiError(400, "Email required");
@@ -52,18 +53,17 @@ const login = asyncHandler(async (req, res) => {
 // Step 2: Verify OTP for login
 const verifyOtp = asyncHandler(async (req, res) => {
   const { email, otp } = req.body;
-
-  if (!(email && otp)) {
+const Otp=Number(otp)
+  if (!(email && Otp)) {
     throw new apiError(400, "Email and OTP required");
   }
 
   try {
     // Verify OTP
-    await verifyotp(email, otp);
+    await verifyotp(email, Otp);
 
     // Fetch the patient or create a session/token
     let patient = await Patient.findOne({ email });
-
     if (!patient) {
       throw new apiError(400, "User not found");
     }

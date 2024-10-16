@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { usepatientApi } from '../api/patient.api';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
-const OtpInput = () => {
+const OtpInput = ({email,onclose}) => {
   const [otp, setOtp] = useState(new Array(4).fill(""));
 
   // Function to handle input change
@@ -20,17 +23,34 @@ const OtpInput = () => {
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Entered OTP: " + otp.join(""));
+    // alert("Entered OTP: " + otp.join(""));
     // You can send the OTP to your server here
   };
+  const navigate=useNavigate()
 
+const verify=()=>{
+  const {verifyPatient}=usepatientApi()
+const Otp=otp.join("")
+console.log(email,Otp)
+  verifyPatient(email,Otp).then((res)=>{
+    console.log(res)
+    if(res.statusCode===200){
+      toast.success(res.message)
+   onclose()
+ navigate("/details")
+    }
+    else{
+      toast.error(res.message)
+}  })
+
+}
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center py-20 items-center bg-transparent">
       <form onSubmit={handleSubmit} className="flex flex-col items-center bg-white p-6 rounded shadow-md">
       <h1 className='font-bold text-2xl'>OTP Verification</h1>
 
         <h3 className="text-lg font-semibold mb-4 text-center">An OTP has been send to <br />
-        XXX XXX XXXX</h3>
+       {email}</h3>
         <div className="flex space-x-2 mb-4">
           {otp.map((value, index) => (
             <input
@@ -46,7 +66,7 @@ const OtpInput = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors"
+          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors" onClick={verify}
         >
           Verify OTP
         </button>
