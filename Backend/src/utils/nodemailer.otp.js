@@ -41,8 +41,8 @@ export const verifyotp=async(email,otp)=>{
     if(!(email && otp)){
         throw new apiError(400,"email and otp requires")
     }
-
     const patient=await Patient.findOne({email})
+
     if (!patient) {
         throw new apiError(400,"patient not found")
         

@@ -25,6 +25,7 @@ const generateAccessTokenAndRefreshToken = async (userID) => {
 // Step 1: Send OTP for login
 const login = asyncHandler(async (req, res) => {
   const { email } = req.body;
+  console.log(email)
 
   if (!email) {
     throw new apiError(400, "Email required");
@@ -52,18 +53,17 @@ const login = asyncHandler(async (req, res) => {
 // Step 2: Verify OTP for login
 const verifyOtp = asyncHandler(async (req, res) => {
   const { email, otp } = req.body;
-
-  if (!(email && otp)) {
+const Otp=Number(otp)
+  if (!(email && Otp)) {
     throw new apiError(400, "Email and OTP required");
   }
 
   try {
     // Verify OTP
-    await verifyotp(email, otp);
+    await verifyotp(email, Otp);
 
     // Fetch the patient or create a session/token
     let patient = await Patient.findOne({ email });
-
     if (!patient) {
       throw new apiError(400, "User not found");
     }
@@ -137,7 +137,6 @@ const matchBloodGroup = asyncHandler(async (req, res) => {
 
   const { bloodType, address } = req.body;
 
-  // Log the incoming request
   console.log('Incoming Request:', { bloodType, address });
 
   const compatibleBloodTypes = getCompatibleBloodTypes(bloodType);
@@ -148,37 +147,36 @@ const matchBloodGroup = asyncHandler(async (req, res) => {
   }
 
   try {
-    // Step 1: Find matching locations using regex
-    const locations = await Location.find({},{ address:1 });
-    console.log('Matching Locations:', locations);
+    // Step 1: Find locations that exactly match the input address
+    const matchingLocations = await Location.find({ address: new RegExp(address, 'i') });
+    console.log('Matching Locations:', matchingLocations);
 
-    if (locations.length === 0) {
+    if (matchingLocations.length === 0) {
       return res.status(404).json(new apiResponse(404, {}, 'No matching locations found'));
     }
 
-    const locationIds = locations.map(location => location._id);
+    const locationIds = matchingLocations.map(location => location._id);
 
-    // Step 2: Find donors based on matching locations and compatible blood types
+    // Step 2: Find donors matching both location and compatible blood types
     const donors = await Donor.aggregate([
       {
         $match: {
-          location: { $in: locationIds } ,// Match donors based on found location IDs
- 
-        bloodType: { $in: compatibleBloodTypes },
-  }
+          location: { $in: locationIds }, // Ensure location matches first
+          bloodType: { $in: compatibleBloodTypes }
+        }
       },
       {
         $lookup: {
-          from: "locations", // Name of the Location collection
-          localField: "location", // Field in the Donor collection
-          foreignField: "_id", // Field in the Location collection
-          as: "locationDetails" // Name for the output array
+          from: 'locations', // Name of the Location collection
+          localField: 'location', // Field in the Donor collection
+          foreignField: '_id', // Field in the Location collection
+          as: 'locationDetails' // Name for the output array
         }
       },
       {
         $unwind: {
-          path: "$locationDetails",
-          preserveNullAndEmptyArrays: true // Preserve donors without location
+          path: '$locationDetails',
+          preserveNullAndEmptyArrays: true // Preserve donors without location details
         }
       },
       {
@@ -188,7 +186,7 @@ const matchBloodGroup = asyncHandler(async (req, res) => {
           phone: 1,
           age: 1,
           bloodType: 1,
-          address: "$locationDetails.address" // Include address from the location details
+          address: '$locationDetails.address' // Include address from the location details
         }
       }
     ]);
@@ -206,4 +204,10 @@ const matchBloodGroup = asyncHandler(async (req, res) => {
   }
 });
 
-export { login, verifyOtp, logout, matchBloodGroup };
+const getCurrentUser=asyncHandler(async(req,res)=>{
+  return res 
+  .status(200)
+  .json(new apiResponse(200,req.user,"current user fetched succesfully"))
+})
+
+export { login, verifyOtp, logout, matchBloodGroup,getCurrentUser };

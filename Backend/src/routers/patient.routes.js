@@ -7,5 +7,6 @@ router.route("/login").post(login)
 
 router.route("/verifyOtp").post(verifyOtp)
 router.route("/logout").post(verifyJwt,logout)
-router.route("/matchblood").post(matchBloodGroup)
+router.route("/matchblood").post(verifyJwt ,matchBloodGroup)
+router.route("/getcurentuser").get(verifyJwt,logout)
  export default router 

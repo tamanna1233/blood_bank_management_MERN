@@ -30,7 +30,7 @@ const generateAccessTokenAndRefreshToken=async(userID)=>{
     // Check if the user is already registered
     const user = await Donor.findOne({ email });
     if (user) {
-      throw new apiError(400, "User already registered");
+      throw new apiError(400, "User already registered with this email");
     }
   
     // Create or find the location document
@@ -143,5 +143,9 @@ const updateAccountDetail=asyncHandler(async(req,res)=>{
   res.status(200)
   .json(new apiResponse(200,{},"user deatail updated suceessfully"))
 })
-
-  export{login,logout,donorregister,updateAccountDetail}
+const getCurrentUser=asyncHandler(async(req,res)=>{
+  return res 
+  .status(200)
+  .json(new apiResponse(200,req.user,"current user fetched succesfully"))
+})
+  export{login,logout,donorregister,updateAccountDetail,getCurrentUser}

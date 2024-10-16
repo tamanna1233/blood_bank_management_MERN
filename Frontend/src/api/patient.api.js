@@ -2,10 +2,11 @@ import axios from 'axios'
 // import { Await } from 'react-router-dom'
 
 export const usepatientApi=()=>{
-    const loginPatient =async(user)=>{
+
+    const loginPatient =async(email)=>{
+        console.log(email)
         try{
-    
-    const response= await axios.post('/api/v1/patient/login',user,
+    const response= await axios.post('/api/v1/patient/login',{email},
         {
             headers: {
                 'accept': 'application/json',
@@ -26,9 +27,10 @@ return(error.message)
 
 
 // verify 
-const verifyPatient = async (user) => {
+const verifyPatient = async (email,otp) => {
+    console.log(email,otp)
     try {
-        const response = await axios.get('/api/v1/patient/verifyOtp',user, {
+        const response = await axios.post('/api/v1/patient/verifyOtp',{email,otp}, {
             headers: {
                 'accept': 'application/json',
                 }
@@ -82,4 +84,3 @@ const verifyPatient = async (user) => {
                                     return {findBlood,logout, verifyPatient,loginPatient}
 
                                 }
-

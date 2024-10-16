@@ -2,6 +2,7 @@ import axios  from "axios";
 
 export const useDonorApi=()=>{
     const donorRegister=async(user) =>{
+        console.log(user)
         try{
             const response = await axios.post('/api/v1/donor/register',user,
                 {
@@ -10,11 +11,13 @@ export const useDonorApi=()=>{
                     }
                 }
                )
+               console.log(response)
                return await response.data;
                }
                catch(error){
                 if(error.response){
                     return error.response.data;
+
                 }
                 return(error.message)
             }}

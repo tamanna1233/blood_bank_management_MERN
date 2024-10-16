@@ -7,14 +7,16 @@ import Footer from './components/Footer'
 import Donor_Register from './components/Donor_Register'
 import Organization_register from './components/Organization_register'
 import Home from './components/Home'
-import Find_Blood from './components/Find_Blood'
+import Find_Blood from './components/register'
 import { Outlet } from 'react-router-dom'
 import OtpInput from './components/Otp_Verification'
 import Details from './components/Details'
+import { Toaster } from 'react-hot-toast'
 
 const App = () => {
   return (
     <div>
+      <Toaster/>
       <Navbar/>
       {/* <Home/>
       <Mission/>
@@ -25,8 +27,6 @@ const App = () => {
 <Find_Blood/> */}
       <Outlet/>
       <Footer/>
-      <OtpInput/>
-      <Details/>
 
     </div>
   )
