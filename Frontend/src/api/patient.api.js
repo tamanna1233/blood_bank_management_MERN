@@ -67,7 +67,7 @@ const verifyPatient = async (email,otp) => {
                 // find blood
                 const findBlood = async (data) => {
                     try {
-                        const response = await axios.get('/api/v1/blood//matchblood',data, {
+                        const response = await axios.post('/api/v1/patient/matchblood',data, {
                             headers: {
                                 'accept': 'application/json',
                                 }
