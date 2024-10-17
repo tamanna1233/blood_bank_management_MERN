@@ -1,7 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import logo from '../assets/logo/blood.svg'
+import { useForm } from 'react-hook-form'
+import { usepatientApi } from '../api/patient.api'
+import Donorlist from './Donorlist'
 const Details = () => {
+ const {register,handleSubmit}=useForm()
+ const [donor ,setdonor ]=useState()
+ const requesthandeler=(data)=>{
+console.log(data)
+
+const {findBlood}=usepatientApi()
+findBlood(data).then((res)=>{
+  console.log(res)
+  setdonor(res)
+
+})
+
+
+ }
+
+ if(donor){
+  return(
+    <Donorlist donor={donor}  close={()=>setdonor(0)}/>
+  )
+ }
+
   return (
     <div className='p-8 flex justify-center w-[60%] mx-auto  my-8  bg-gray-300 rounded-lg shadow-lg shadow-gray-700'>
         <div className=' hidden sm:flex h-96   '>
@@ -10,9 +34,9 @@ const Details = () => {
         
       <div className='w-[100%] sm:w-[50%]'>
       <h1 className=' flex flex-col items-center font-bold text-xl text-black p-2'>Recipient details </h1> <br />
-        <form action="" className='flex flex-col'>
+        <form action="" className='flex flex-col' onSubmit={handleSubmit(requesthandeler)}>
         <label htmlFor="">Blood Type</label>
-        <select name="" id="" className='border border-black rounded-lg m-1  '>
+        <select name="" id="" className='border border-black rounded-lg m-1  ' {...register("bloodType") }>
             <option value="">Select Blood Type</option>
             <option value="A_pos">A_pos</option>
             <option value="A_neg">A_neg</option>
@@ -32,7 +56,7 @@ const Details = () => {
             {/* <hr />  */}
            <div className='flex flex-col m-2'>
            <label htmlFor="">State</label>
-        <input type="text" name="" id="" className='border border-black rounded-lg m-1 hover:border-blue-600' />
+        <input type="text" name="" id="" className='border border-black rounded-lg m-1 hover:border-blue-600'{...register("address")} />
         <label htmlFor="">District</label>
         <input type="text" name="" id="" className='border border-black rounded-lg m-1 hover:border-blue-600' />
            </div>
