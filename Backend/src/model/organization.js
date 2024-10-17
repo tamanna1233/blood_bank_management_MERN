@@ -1,7 +1,7 @@
 import { model, Schema,SchemaType } from "mongoose";
 const organizationSchema= new Schema({
 
-    name:{
+    orgainzationName:{
         type:String,
     required:true,
     },
@@ -13,6 +13,11 @@ const organizationSchema= new Schema({
         type:Number,
         required:true,
     },
+    headName:{
+        type :String,
+        required:true,
+    }
+    ,
     password:{
         type:String,
         required:true,
