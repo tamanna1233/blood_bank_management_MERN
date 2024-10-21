@@ -5,10 +5,7 @@ const organizationSchema= new Schema({
         type:String,
     required:true,
     },
-    email:{
-        type:String,
-        required:true,
-    },
+    
     phoneno :{
         type:Number,
         required:true,
@@ -18,10 +15,7 @@ const organizationSchema= new Schema({
         required:true,
     }
     ,
-    password:{
-        type:String,
-        required:true,
-    },
+   
     location:{
         type:Schema.Types.ObjectId,
         ref :'Location',

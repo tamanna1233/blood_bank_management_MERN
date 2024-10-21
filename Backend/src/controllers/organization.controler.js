@@ -1,25 +1,11 @@
 import { Location } from '../model/location.model.js'
 import {Orgainzation} from '../model/organization.js'
-import { apiError } from '../utils/apiError'
-import { apiResponse } from '../utils/apiResponse'
-import { asyncHandler } from '../utils/asyncHandler'
-const generateAccessTokenAndRefreshToken =async(userID)=>{
-    try {
-        const organization= await Orgainzation.findById(userID)
-        const accessToken =Orgainzation.generateAccessToken()
-        const refreshToken=Orgainzation.generateRefreshToken()
-        organization.refreshToken=refreshToken
+import { apiError } from '../utils/apiError.js'
+import { apiResponse } from '../utils/apiResponse.js'
+import { asyncHandler } from '../utils/asyncHandler.js'
 
-        await Orgainzation.Save({validateBeforeSave:false})
-        return {accessToken,refreshToken}
-}
-catch (error) {
-    throw new apiError(500,error.message)
-
-}
-}
 const organisationRegister =asyncHandler(async(req,res)=>{
-    const {organizationName, location,headName, phoneno } =req.body;
+    const {organizationName,location,headName,phoneno} =req.body;
 
     // fields are required
     if (!organizationName || !location || !headName || !phoneno) {
@@ -28,7 +14,7 @@ const organisationRegister =asyncHandler(async(req,res)=>{
     // check if user is already registered
     const existingOrganization = await Orgainzation.findOne({ phoneno });
     if (existingOrganization){
-        throw new apiError(400,"user already registered with this email");
+        throw new apiError(400,"user already registered with this phone no");
     }
 
     // create of find the location document 
@@ -39,7 +25,7 @@ const organisationRegister =asyncHandler(async(req,res)=>{
         }
         else{
         console.log("Creating new location with Address:",location);
-    const newLocation = new location({
+    const newLocation = new Location({
         address:location
     });
     const savedLocation= await newLocation.save();
@@ -49,7 +35,7 @@ const organisationRegister =asyncHandler(async(req,res)=>{
 
     // create the organization
     const newOrganization = new Orgainzation({
-        orgainzationName,
+        orgainzationName:organizationName,
         Location:locationId,
         // address,
         headName,
@@ -59,7 +45,7 @@ const organisationRegister =asyncHandler(async(req,res)=>{
     if(!savedOrganization){
         throw new apiError(500,"Error creating new organization")
     }
-    return res.status(201).json(new apiResponse(201,{organization:savedOrgansization},"organization is successfully registered"));
+    return res.status(201).json(new apiResponse(201,{organization:savedOrganization},"organization is successfully registered"));
 
 
     })
