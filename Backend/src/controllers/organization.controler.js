@@ -36,7 +36,7 @@ const organisationRegister =asyncHandler(async(req,res)=>{
     // create the organization
     const newOrganization = new Orgainzation({
         orgainzationName:organizationName,
-        Location:locationId,
+        location:locationId,
         // address,
         headName,
         phoneno
