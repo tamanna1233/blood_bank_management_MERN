@@ -1,6 +1,7 @@
 import React from 'react'
 import bgimg from '../assets/Background image/Ellipse 8.svg'
 import { Link } from 'react-router-dom'
+import Admin_Login from './Admin_Login'
 const Home = () => {
   return (
     <div>
@@ -15,6 +16,7 @@ const Home = () => {
 </div>
 
       </div>
+      <Admin_Login/>
 
 
       </div>

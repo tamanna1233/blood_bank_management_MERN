@@ -3,8 +3,8 @@ import aboutUs from '../assets/Background image/aboutUs.png'
 
 const AboutUs = () => {
   return (
-    <div className='flex flex-col  ' style={{
-        backgroundImage: `url(${aboutUs})`,
+    <div className='' style={{
+        backgroundImage: `url(${aboutUs})`,backgroundRepeat:'no-repeat',backgroundSize: 'cover', height: '100vh',width: '100%',
       }} >
 
         <h1 className='text-2xl font-bold flex justify-center text-[#991747] py-3  '>About Us</h1>
