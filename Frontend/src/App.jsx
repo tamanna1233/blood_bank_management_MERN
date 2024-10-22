@@ -12,19 +12,13 @@ import { Outlet } from 'react-router-dom'
 import OtpInput from './components/Otp_Verification'
 import Details from './components/Details'
 import { Toaster } from 'react-hot-toast'
+import Admindashboard from './components/Admindashboard'
 
 const App = () => {
   return (
     <div>
       <Toaster/>
       <Navbar/>
-      {/* <Home/>
-      <Mission/>
-      <Carousel/>
-      <GetBlood/>
-    <Donor_Register/> 
- <Organization_register/> 
-<Find_Blood/> */}
       <Outlet/>
       <Footer/>
 

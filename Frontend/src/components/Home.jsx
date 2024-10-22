@@ -16,7 +16,7 @@ const Home = () => {
 </div>
 
       </div>
-      <Admin_Login/>
+     
 
 
       </div>

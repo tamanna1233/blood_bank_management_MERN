@@ -6,12 +6,9 @@ import { Donor } from '../model/donor.model.js';
 import { Orgainzation } from '../model/organization.js';
 
 const generateAccessTokenAndRefreshToken=async(userID)=>{
-    console.log(userID)
     try {
       const user=  await Admin.findById(userID)
- console.log(user)
      const accessToken=  user.generateAccessToken()
-     console.log(accessToken)
       const refreshToken=  user.generateRefreshToken()
       user.refreshToken=refreshToken
       
@@ -51,9 +48,10 @@ if(!admin){
 
 const login =asyncHandler(async(req,res)=>{
 
-    const {email,password}=req.body
+    const {email,password}=req.body.data
+   
     if(!(email&&password)){
-        throw new apiError(400,"email and password")
+        throw new apiError(400,"email and password required")
     }
    const user=await  Admin.findOne({email})
    if(!user){
@@ -107,7 +105,7 @@ const getCurrentUser=asyncHandler(async(req,res)=>{
                 phone: 1,
                 bloodType: 1,
                 address: "$locationdata.address",
-               _id:0
+               _id:1
                 
             } 
             ,
@@ -143,7 +141,7 @@ const orgainizationList=asyncHandler(async(req,res)=>{
                 phoneno:1,
                 headName:1,
                 address:"$locationdata.address",
-                _id:0
+                _id:1
             }
         }
 

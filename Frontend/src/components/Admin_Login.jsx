@@ -1,18 +1,41 @@
-import React, { useState } from 'react'
-
+import React from 'react'
+import {useForm} from "react-hook-form"
+import {useAdminApi} from "../api/admin.api"
+import toast from "react-hot-toast"
+import { useNavigate } from 'react-router-dom'
 const Admin_Login = () => {
-    const [email,setemail] =useState()
-    const [password,setpassword] =useState()
+    const  {register,handleSubmit}=useForm()
+    const navigate=useNavigate()
+const loginhandeler=async(data)=>{
+console.log(data)
+
+const {login}=useAdminApi()
+await login(data).then((res)=>{
+  console.log(res)
+if(res.statusCode===200){
+  toast.success(res.message)
+ navigate("/admin_dashboard")
+}
+else{
+  toast.error(res.message)
+}
+
+})
+.catch((error)=>{
+console.log(error)
+})
+}
+ 
   return (
     <div>
        <div className='flex   m-auto py-20 justify-center items-center gap-3'>
-      <div className='bg-white m-auto p-4 rounded-xl shadow-xl  flex flex-col justify-center items-center'>
+      <form className='bg-white m-auto p-4 rounded-xl shadow-xl  flex flex-col justify-center items-center' onSubmit={handleSubmit(loginhandeler)}>
         <h1 className='font-bold text-2xl  p-4'> Admin Login</h1>
-        <input type="email" required placeholder='Enter your email address... ' className='p-1 border border-black  m-4 rounded-lg w-full'  onChange={(e)=>setemail(e.target.value)} />
-        <input type="password" required placeholder='Enter your password... ' className='p-1 border border-black  m-4 rounded-lg w-full'  onChange={(e)=>setpassword(e.target.value)} />
+        <input type="email" required placeholder='Enter your email address... ' className='p-1 border border-black  m-4 rounded-lg w-full' {...register("email")} />
+        <input type="password" required placeholder='Enter your password... ' className='p-1 border border-black  m-4 rounded-lg w-full' {...register("password")}  />
 
         <button type='submit' className='bg-black text-white font-bold flex justify-center m-auto text-sm px-8 p-2 rounded-lg hover:bg-gray-300 hover:text-black hover:border border-black'>login</button>
-      </div>
+      </form>
   
     </div>
     </div>
