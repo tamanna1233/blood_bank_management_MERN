@@ -3,6 +3,7 @@ import { apiError } from '../utils/apiError.js';
 import { apiResponse } from '../utils/apiResponse.js';
 import {Admin} from '../model/admin.model.js'
 import { Donor } from '../model/donor.model.js';
+import { Orgainzation } from '../model/organization.js';
 
 const generateAccessTokenAndRefreshToken=async(userID)=>{
     console.log(userID)
@@ -119,6 +120,37 @@ const getCurrentUser=asyncHandler(async(req,res)=>{
 
     return res.status(200).json(new apiResponse(200, { donors }, "success"));
 });
+
+const orgainizationList=asyncHandler(async(req,res)=>{
+    const orgainzationList= await Orgainzation.aggregate([
+        {
+            $lookup:{
+            from:"locations",
+            localField:"location",
+            foreignField:"_id",
+            as:"locationdata"
+            }
+
+        },
+        {
+            $unwind: {
+                path: "$locationdata",
+                preserveNullAndEmptyArrays: true // Handle cases where there's no matching location
+            }
+        },{
+            $project:{
+                orgainzationName:1,
+                phoneno:1,
+                headName:1,
+                address:"$locationdata.address",
+                _id:0
+            }
+        }
+
+    ])
+    return res.status(200).json(new apiResponse(200,{orgainzationList},"success"))
+})
+
 const logout=asyncHandler(async(req,res)=>{
     await Admin.findByIdAndUpdate(
       req.user._id,
@@ -150,4 +182,5 @@ export{
     getCurrentUser,
     donorList,
     logout,
+    orgainizationList,
 }
