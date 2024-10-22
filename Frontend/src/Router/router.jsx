@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react"
 import {createBrowserRouter} from "react-router-dom"
 import Details from "../components/Details"
+import AboutUs from "../components/AboutUs"
 const Register =lazy(()=>import("../components/register"))
 // import Organization_register from "../components/Organization_register"
 const  Home  =lazy(()=>import("../components/Home"))
@@ -27,6 +28,9 @@ const router=createBrowserRouter([
         {
             path:"/Organization_register",
             element:<Organization_register/>
+        },{
+            path:"/aboutUs",
+            element:<AboutUs/>
         },
         {
             path:"/find_blood",
