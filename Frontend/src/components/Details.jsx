@@ -4,13 +4,17 @@ import logo from '../assets/logo/blood.svg'
 import { useForm } from 'react-hook-form'
 import { usepatientApi } from '../api/patient.api'
 import Donorlist from './Donorlist'
+import { useDispatch } from 'react-redux'
+import { logout as authlogout } from '../App/slice'
+import { useNavigate } from 'react-router-dom'
 const Details = () => {
  const {register,handleSubmit}=useForm()
  const [donor ,setdonor ]=useState()
+ const {findBlood,logout}=usepatientApi()
+const navigate =useNavigate()
  const requesthandeler=(data)=>{
 console.log(data)
 
-const {findBlood}=usepatientApi()
 findBlood(data).then((res)=>{
   console.log(res)
   setdonor(res)
@@ -25,9 +29,26 @@ findBlood(data).then((res)=>{
     <Donorlist donor={donor}  close={()=>setdonor(0)}/>
   )
  }
+ const dispatch=useDispatch()
+ const logouthandel=()=>{
+  console.log("click")
+  logout().then((res)=>{
+    console.log(res)
+if(res.statusCode===200){
+  dispatch(authlogout())
+  navigate("/")
+  
+}
 
-  return (
-    <div className='p-8 flex justify-center w-[60%] mx-auto  my-8  bg-gray-300 rounded-lg shadow-lg shadow-gray-700'>
+  })
+ }
+
+  return (<div>
+    <div className='flex justify-end'>
+    <button className='bg-red-500 px-6 py-2 rounded-md mx-7 'onClick={logouthandel} >logout</button>
+
+    </div>
+    <div className='p-8 flex justify-center w-[60%] mx-auto  my-8  bg-gray-300 rounded-lg shadow-lg shadow-gray-700'> 
         <div className=' hidden sm:flex h-96   '>
             <img src={logo} alt="" />
         </div>
@@ -67,6 +88,7 @@ findBlood(data).then((res)=>{
   <button className="hover:bg-black hover:text-white  rounded-2xl p-1 active:bg-black">Blood Banks</button>
 </div> */}
       </div>
+    </div>
     </div>
   )
 }

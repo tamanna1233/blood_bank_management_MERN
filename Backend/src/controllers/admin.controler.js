@@ -57,6 +57,7 @@ const login =asyncHandler(async(req,res)=>{
    if(!user){
     throw new apiError(400,"user not found")
    } 
+   const role={role:"admin"}
    const { accessToken, refreshToken } = await  generateAccessTokenAndRefreshToken(user._id);
    const loggedInUser= await Admin.findById(user._id).select('-password -refreshToken')
   const options={
@@ -69,7 +70,7 @@ const login =asyncHandler(async(req,res)=>{
   .cookie('refreshToken',refreshToken,options)
   .json(
    new apiResponse(200,{
-       user: loggedInUser,accessToken,refreshToken,
+       user: loggedInUser,accessToken,refreshToken,role,
        
    },'user logged in sucessfully')
   
@@ -78,9 +79,13 @@ const login =asyncHandler(async(req,res)=>{
     
 })
 const getCurrentUser=asyncHandler(async(req,res)=>{
+    const userdata={
+        user:req.user,
+        role:"admin"
+    }
     return res 
     .status(200)
-    .json(new apiResponse(200,req.user,"current user fetched succesfully"))
+    .json(new apiResponse(200,{userdata},"current user fetched succesfully"))
   })
 
 

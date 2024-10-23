@@ -11,30 +11,59 @@ export const useAdminApi=()=>{
  
          return await response.data
        } catch (error) {
-        console.log(error)
+        return error.response
        }
     }
 
+    const logout = async()=>{
+        console.log("clicked")
+        try {
+            const response =await axios.get("/api/v1/admin/logout",{
+                headers :{
+                    'accept':'application/json',
+                }
+            })
+            console.log("clicked in")
+        console.log(response.data)
+            return  response.data
+          } catch (error) {
+            console.log("clicke erroe")
+           return error.response
+          }
+    }
 const currentuser=async()=>{
-    const response =await axios.get("/api/v1/admin/currentuser")
-
-    return response.data
+    try {
+        const response =await axios.get("/api/v1/admin/getcurentuser")
+    
+        return response.data
+    } catch (error) {
+        return error.response
+    }
 }
 
-const  donorlist=async()=>{
-    const response=await axios.get("/api/v1/admin/donorlist")
-    return response.data
+const  donorlist=async()=>{try {
+    
+        const response=await axios.get("/api/v1/admin/donorlist")
+        return response.data
+} catch (error) {
+    return error.response
+    
+}
 }
 
 const  organizationlist=async()=>{
-    const response=await axios.get("/api/v1/admin/organizationlist")
-    return response.data
+   try {
+     const response=await axios.get("/api/v1/admin/organizationlist")
+     return response.data
+   } catch (error) {
+    return error.response
+   }
 }
 
 
 
     return {
-        login,currentuser,donorlist,organizationlist
+        login,currentuser,donorlist,organizationlist,logout
     }
 
 }

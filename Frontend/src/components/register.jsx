@@ -14,6 +14,7 @@ const [popUpvisible,isPopUpVisible]=useState(false)
     if(res.statusCode===200){
       isPopUpVisible(true)
       toast.success(res.message)
+      
     } else {
       isPopUpVisible(false); // Ensure popup hides if registration fails
       toast.error(res.message);

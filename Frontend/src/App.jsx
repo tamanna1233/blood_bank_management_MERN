@@ -1,20 +1,27 @@
 import React from 'react'
 import Navbar from './components/Navbar'
-import Mission from './components/Mission'
-import Carousel from './components/Carousel'
-import GetBlood from './components/GetBlood'
-import Footer from './components/Footer'
-import Donor_Register from './components/Donor_Register'
-import Organization_register from './components/Organization_register'
-import Home from './components/Home'
-import Find_Blood from './components/register'
 import { Outlet } from 'react-router-dom'
-import OtpInput from './components/Otp_Verification'
-import Details from './components/Details'
 import { Toaster } from 'react-hot-toast'
-import Admindashboard from './components/Admindashboard'
-
+import { useEffect } from 'react'
+import {useDispatch, useSelector} from "react-redux"
+import Footer from "./components/Footer"
+import { useAdminApi } from './api/admin.api'
+import { login } from './App/slice'
 const App = () => {
+  const dispatch =useDispatch()
+  const userData=useSelector(state=>state.auth)
+  console.log(userData)
+  useEffect(()=>{
+    const {currentuser}=useAdminApi()
+    
+    currentuser().then((res)=>{
+      if(res.statusCode===200){
+        console.log("hi",res)
+        dispatch(login(res))
+      }
+      
+    })
+  },[])
   return (
     <div>
       <Toaster/>

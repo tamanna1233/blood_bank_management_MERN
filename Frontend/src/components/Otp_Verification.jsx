@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { usepatientApi } from '../api/patient.api';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../App/slice';
 
 const OtpInput = ({email,onclose}) => {
   const [otp, setOtp] = useState(new Array(4).fill(""));
@@ -27,7 +29,7 @@ const OtpInput = ({email,onclose}) => {
     // You can send the OTP to your server here
   };
   const navigate=useNavigate()
-
+const dispstch=useDispatch()
 const verify=()=>{
   const {verifyPatient}=usepatientApi()
 const Otp=otp.join("")
@@ -37,6 +39,8 @@ console.log(email,Otp)
     if(res.statusCode===200){
       toast.success(res.message)
    onclose()
+   dispstch(login(res))
+
  navigate("/details")
     }
     else{

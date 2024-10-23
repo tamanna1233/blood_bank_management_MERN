@@ -13,6 +13,8 @@ const App =lazy(()=>import("../App"))
 const Organization_register=lazy(()=>import('../components/Organization_register'))
 const Mission =lazy(()=>import("../components/Mission"))
 const Donor_Register=lazy(()=>import("../components/Donor_Register"))
+import Adminroute from "../components/adminroutemiddeleware"
+import Patientroute from "../components/patientmidelware"
 const router=createBrowserRouter([
     {path:"/",
         element:<Suspense><App/></Suspense>,
@@ -36,20 +38,20 @@ const router=createBrowserRouter([
         },
         {
             path:"/find_blood",
-            element:<Register/>
+            element:<Patientroute Authentication={false}><Register/></Patientroute>
 
         },
         {
             path:"/details",
-            element:<Details/>
+            element:<Patientroute><Details/></Patientroute>
         },
         {
             path:"/admin_login",
-            element:<Admin_Login/>
+            element:<Adminroute Authentication={false}><Admin_Login/></Adminroute>
         },
         {
             path:"/admin_dashboard",
-            element:<Admindashboard/>
+            element:<Adminroute Authentication={true}><Admindashboard/></Adminroute> 
         }
    
     ]

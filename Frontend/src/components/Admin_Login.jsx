@@ -3,9 +3,13 @@ import {useForm} from "react-hook-form"
 import {useAdminApi} from "../api/admin.api"
 import toast from "react-hot-toast"
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { login as Authlogin } from '../App/slice'
 const Admin_Login = () => {
     const  {register,handleSubmit}=useForm()
     const navigate=useNavigate()
+    const dispatch=useDispatch()
+
 const loginhandeler=async(data)=>{
 console.log(data)
 
@@ -14,6 +18,7 @@ await login(data).then((res)=>{
   console.log(res)
 if(res.statusCode===200){
   toast.success(res.message)
+dispatch(Authlogin(res))
  navigate("/admin_dashboard")
 }
 else{
