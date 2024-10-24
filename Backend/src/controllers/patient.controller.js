@@ -77,7 +77,7 @@ const Otp=Number(otp)
       httpOnly: true,
       secure: true,
     };
-    
+    const role="patient"
     return res
       .status(200)
       .cookie('accessToken', accessToken, options)
@@ -87,6 +87,7 @@ const Otp=Number(otp)
           user: loggedInUser,
           accessToken,
           refreshToken,
+          role,
         }, 'User logged in successfully')
       );
   } catch (error) {
@@ -231,9 +232,10 @@ const matchBloodGroup = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser=asyncHandler(async(req,res)=>{
+  const role="patinet"
   return res 
   .status(200)
-  .json(new apiResponse(200,req.user,"current user fetched succesfully"))
+  .json(new apiResponse(200,req.user,role,"current user fetched succesfully"))
 })
 
 export { login, verifyOtp, logout, matchBloodGroup,getCurrentUser };
