@@ -1,192 +1,430 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
-import {useForm} from 'react-hook-form';
-import toast from 'react-hot-toast';
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useDonorApi } from "../api/Donor.api";
+import {
+  FiUser,
+  FiMail,
+  FiPhone,
+  FiMapPin,
+  FiLock,
+  FiCheck,
+  FiChevronRight,
+} from "react-icons/fi";
 
-import {useDonorApi} from "../api/Donor.api"
 const Donor_Register = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
+  const { donorRegister } = useDonorApi();
+  const [currentStep, setCurrentStep] = useState(1);
 
-const {handleSubmit}=useForm();
-
-
-
-  // State to hold form data
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    phone: '',
-    email: '',
-    age: '',
-    bloodGroup: '',
-    addressLine1: '',
-    addressLine2: '',
-    city: '',
-    state: '',
-    zip: '',
-    country: '',
-    password:'',
-    agreement: false
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    age: "",
+    bloodGroup: "",
+    addressLine1: "",
+    addressLine2: "",
+    city: "",
+    state: "",
+    zip: "",
+    country: "",
+    password: "",
+    agreement: false,
   });
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
-const data={
-  name:`${formData?.firstName} ${formData?.lastName}`,
-  age: formData?.age,
-  phone:formData?.phone,
-  email:formData?.email,
-  location:`address:${formData?.addressLine1} city:${formData?.city} state:${formData?.state} zip:${formData?.zip} country:${formData?.country}`,
-  bloodType:formData?.bloodGroup,
-  password:formData?.password
-}
-console.log( data)
-const {donorRegister}=useDonorApi()
-const registerHandler =async ()=>{
+  const data = {
+    name: `${formData?.firstName} ${formData?.lastName}`,
+    age: formData?.age,
+    phone: formData?.phone,
+    email: formData?.email,
+    location: `address:${formData?.addressLine1} city:${formData?.city} state:${formData?.state} zip:${formData?.zip} country:${formData?.country}`,
+    bloodType: formData?.bloodGroup,
+    password: formData?.password,
+  };
 
+  const registerHandler = async () => {
     await donorRegister(data)
-    .then((res)=>{
-      console.log(res)
-      toast.success(res?.message)
-    })
-    .catch((error)=>{
-      console.log(error)
-    })
-    // navigate('')
-    
-};
+      .then((res) => {
+        toast.success(res?.message);
+      })
+      .catch((error) => {
+        toast.error("Registration failed");
+      });
+  };
+
+  const totalSteps = 3;
+  const progress = (currentStep / totalSteps) * 100;
 
   return (
-    
-    <div className="w-2/3 mx-auto my-8 bg-gray-100 rounded-lg shadow-lg">
-        <div className='bg-[#6A0B37] text-white text-2xl rounded-t-lg font-bold p-4 '>
-            <h1>Register as Donor</h1>
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 py-8 px-4">
+      <div className="max-w-2xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
+            Become a Blood Donor
+          </h1>
+          <p className="text-base-content/70">Save lives by donating blood</p>
         </div>
-      <form   onSubmit={handleSubmit(registerHandler)}className="space-y-6 px-4 sm:px-12">
-        
-        {/* Name Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-          <div className="flex flex-col">
-            <label htmlFor="firstName" className="mb-1 text-sm font-medium text-gray-700">First Name</label>
-            <input type="text" id="firstName" name="firstName" value={formData?.firstName} onChange={handleChange} className="p-2 border w-auto border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
+
+        {/* Progress Bar */}
+        <div className="mb-8">
+          <div className="flex justify-between mb-2">
+            <span className="text-sm font-semibold">
+              Step {currentStep} of {totalSteps}
+            </span>
+            <span className="text-sm font-semibold">
+              {Math.round(progress)}%
+            </span>
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="lastName" className="mb-1 text-sm font-medium text-gray-700">Last Name</label>
-            <input type="text" id="lastName" name="lastName" value={formData?.lastName} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
+          <progress
+            className="progress progress-primary w-full"
+            value={progress}
+            max="100"
+          ></progress>
+        </div>
+
+        {/* Form Card */}
+        <div className="card bg-base-100 shadow-2xl border border-base-300">
+          <div className="card-body">
+            <form
+              onSubmit={handleSubmit(registerHandler)}
+              className="space-y-6"
+            >
+              {/* Step 1: Personal Information */}
+              {currentStep === 1 && (
+                <div className="space-y-4 animate-fadeInUp">
+                  <h2 className="text-2xl font-bold text-primary mb-6">
+                    Personal Information
+                  </h2>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-semibold">
+                          First Name
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="John"
+                        value={formData?.firstName}
+                        onChange={handleChange}
+                        name="firstName"
+                        className="input input-bordered focus:input-primary"
+                        required
+                      />
+                    </div>
+
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-semibold">
+                          Last Name
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Doe"
+                        value={formData?.lastName}
+                        onChange={handleChange}
+                        name="lastName"
+                        className="input input-bordered focus:input-primary"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text font-semibold">
+                        Email Address
+                      </span>
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="you@example.com"
+                      value={formData?.email}
+                      onChange={handleChange}
+                      name="email"
+                      className="input input-bordered focus:input-primary"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text font-semibold">
+                        Phone Number
+                      </span>
+                    </label>
+                    <input
+                      type="tel"
+                      placeholder="+1 (555) 123-4567"
+                      value={formData?.phone}
+                      onChange={handleChange}
+                      name="phone"
+                      className="input input-bordered focus:input-primary"
+                      required
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-semibold">Age</span>
+                      </label>
+                      <input
+                        type="number"
+                        placeholder="25"
+                        min="18"
+                        max="60"
+                        value={formData?.age}
+                        onChange={handleChange}
+                        name="age"
+                        className="input input-bordered focus:input-primary"
+                        required
+                      />
+                    </div>
+
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-semibold">
+                          Blood Group
+                        </span>
+                      </label>
+                      <select
+                        value={formData?.bloodGroup}
+                        onChange={handleChange}
+                        name="bloodGroup"
+                        className="select select-bordered focus:select-primary"
+                        required
+                      >
+                        <option value="">Select Blood Group</option>
+                        <option value="O_pos">O+</option>
+                        <option value="O_neg">O-</option>
+                        <option value="A_pos">A+</option>
+                        <option value="A_neg">A-</option>
+                        <option value="B_pos">B+</option>
+                        <option value="B_neg">B-</option>
+                        <option value="AB_pos">AB+</option>
+                        <option value="AB_neg">AB-</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 2: Address Information */}
+              {currentStep === 2 && (
+                <div className="space-y-4 animate-fadeInUp">
+                  <h2 className="text-2xl font-bold text-primary mb-6">
+                    Address Information
+                  </h2>
+
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text font-semibold">
+                        Street Address
+                      </span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="123 Main Street"
+                      value={formData?.addressLine1}
+                      onChange={handleChange}
+                      name="addressLine1"
+                      className="input input-bordered focus:input-primary"
+                      required
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-semibold">City</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="New York"
+                        value={formData?.city}
+                        onChange={handleChange}
+                        name="city"
+                        className="input input-bordered focus:input-primary"
+                        required
+                      />
+                    </div>
+
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-semibold">State</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="NY"
+                        value={formData?.state}
+                        onChange={handleChange}
+                        name="state"
+                        className="input input-bordered focus:input-primary"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-semibold">
+                          Zip Code
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="10001"
+                        value={formData?.zip}
+                        onChange={handleChange}
+                        name="zip"
+                        className="input input-bordered focus:input-primary"
+                        required
+                      />
+                    </div>
+
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-semibold">
+                          Country
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="United States"
+                        value={formData?.country}
+                        onChange={handleChange}
+                        name="country"
+                        className="input input-bordered focus:input-primary"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3: Security & Agreement */}
+              {currentStep === 3 && (
+                <div className="space-y-4 animate-fadeInUp">
+                  <h2 className="text-2xl font-bold text-primary mb-6">
+                    Security & Terms
+                  </h2>
+
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text font-semibold">Password</span>
+                    </label>
+                    <input
+                      type="password"
+                      placeholder="••••••••"
+                      value={formData?.password}
+                      onChange={handleChange}
+                      name="password"
+                      className="input input-bordered focus:input-primary"
+                      required
+                    />
+                  </div>
+
+                  {/* Summary Card */}
+                  <div className="bg-base-200/50 rounded-lg p-4 space-y-2">
+                    <h3 className="font-bold text-lg mb-4">
+                      Verification Summary
+                    </h3>
+                    <div className="text-sm space-y-1">
+                      <p>
+                        <strong>Name:</strong> {formData?.firstName}{" "}
+                        {formData?.lastName}
+                      </p>
+                      <p>
+                        <strong>Email:</strong> {formData?.email}
+                      </p>
+                      <p>
+                        <strong>Phone:</strong> {formData?.phone}
+                      </p>
+                      <p>
+                        <strong>Blood Group:</strong> {formData?.bloodGroup}
+                      </p>
+                      <p>
+                        <strong>Address:</strong> {formData?.addressLine1},{" "}
+                        {formData?.city}, {formData?.state} {formData?.zip}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Terms & Conditions */}
+                  <div className="form-control">
+                    <label className="label cursor-pointer justify-start gap-4">
+                      <input
+                        type="checkbox"
+                        checked={formData?.agreement}
+                        onChange={handleChange}
+                        name="agreement"
+                        className="checkbox checkbox-primary"
+                      />
+                      <span className="label-text">
+                        I accept the terms and conditions and privacy policy
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              )}
+
+              {/* Navigation Buttons */}
+              <div className="flex gap-3 justify-between pt-6 border-t">
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
+                  disabled={currentStep === 1}
+                  className="btn btn-outline"
+                >
+                  Previous
+                </button>
+
+                {currentStep < totalSteps ? (
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(currentStep + 1)}
+                    className="btn btn-primary gap-2"
+                  >
+                    Next
+                    <FiChevronRight size={20} />
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    disabled={!formData?.agreement}
+                    className="btn btn-success gap-2"
+                  >
+                    <FiCheck size={20} />
+                    Complete Registration
+                  </button>
+                )}
+              </div>
+            </form>
           </div>
         </div>
-        
-        {/* Phone Number */}
-        <div className="flex flex-col">
-          <label htmlFor="phone" className="mb-1 text-sm font-medium text-gray-700">Phone Number</label>
-          <input type="tel" id="phone" name="phone" value={formData?.phone} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-        </div>
-
-        {/* Email */}
-        <div className="flex flex-col">
-          <label htmlFor="email" className="mb-1 text-sm font-medium text-gray-700">Email Address</label>
-          <input type="email" id="email" name="email" value={formData?.email} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-        </div>
-
-        {/* Age and Blood Group */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="flex flex-col">
-            <label htmlFor="age" className="mb-1 text-sm font-medium text-gray-700">Age</label>
-            <input type="number" id="age"  min="18" max="60" name="age" value={formData?.age} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="bloodGroup" className="mb-1 text-sm font-medium text-gray-700">Blood Group</label>
-            <select id="bloodGroup" name="bloodGroup" value={formData?.bloodGroup} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required>
-              <option value="">Select Blood Group</option>
-              <option value="A_pos">A+</option>
-              <option value="A_neg">A-</option>
-              <option value="B_pos">B+</option>
-              <option value="B_neg">B-</option>
-              <option value="AB_pos">AB+</option>
-              <option value="AB_neg">AB-</option>
-              <option value="O_pos">O+</option>
-              <option value="O_neg">O-</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="flex flex-col">
-        <label htmlFor="password" className="mb-1 text-sm font-medium text-gray-700">Password</label>
-          <input type="password" id="password" name="password" value={formData?.password} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500"/>
-        </div>
-
-        {/* Address Summary */}
-        <div className="space-y-4">
-          <div className="flex flex-col">
-            <label htmlFor="address" className="mb-1 text-sm font-medium text-gray-700">Address</label>
-            <input type="text" id="addressLine1" name="addressLine1" value={formData?.addressLine1} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-          </div>
-
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex flex-col">
-              <label htmlFor="city" className="mb-1 text-sm font-medium text-gray-700">City</label>
-              <input type="text" id="city" name="city" value={formData?.city} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="state" className="mb-1 text-sm font-medium text-gray-700">State</label>
-              <input type="text" id="state" name="state" value={formData?.state} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex flex-col">
-              <label htmlFor="zip" className="mb-1 text-sm font-medium text-gray-700">Zip Code</label>
-              <input type="text" id="zip" name="zip" value={formData?.zip} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="country" className="mb-1 text-sm font-medium text-gray-700">Country</label>
-              <input type="text" id="country" name="country" value={formData?.country} onChange={handleChange} className="p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" required />
-            </div>
-          </div>
-        </div>
-
-        {/* Checkbox */}
-        <div className="flex items-center justify-center">
-          <input type="checkbox" id="agreement" name="agreement" checked={formData?.agreement} onChange={handleChange} className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black" required />
-          <label htmlFor="agreement" className="ml-2 text-sm text-gray-700">Accept our term and condition</label>
-        </div>
-
-        {/* Input Type Summary */}
-        <div className="p-4 mt-4 bg-blue-100 rounded-lg">
-          <h3 className="text-lg font-semibold mb-2">Entered detail</h3>
-          <p><strong>Name:</strong> {formData?.firstName} {formData?.lastName}</p>
-          <p><strong>Phone:</strong> {formData?.phone}</p>
-          <p><strong>Email:</strong> {formData?.email}</p>
-          <p><strong>Age:</strong> {formData?.age}</p>
-          <p><strong>Blood Group:</strong> {formData?.bloodGroup}</p>
-          <p><strong>Address:</strong> {formData?.addressLine1}, {formData?.city}, {formData?.state}, {formData?.zip}, {formData?.country}</p>
-          <p><strong>Agreement:</strong> {formData?.agreement ? "Agreed" : "Not Agreed"}</p>
-        </div>
-
-        {/* Submit Button */}
-        <div className='flex justify-end py-2'>
-       {formData?.agreement?
-        <button type="submit"   className="flex gap-2 items-right p-2 bg-black text-white font-semibold rounded-md hover:bg-gray-700 transition">
-          Submit  <FaRegCheckCircle className='' size={23}/>
-        </button> : <button type="submit" disabled  className="flex gap-2 items-right p-2 bg-white border border-black  text-black font-semibold rounded-md hover:bg-gray-700 transition cursor-not-allowed">
-          Submit  <FaRegCheckCircle className='' size={23}/>
-        </button> }
-        </div>
-      </form>
+      </div>
     </div>
-  );  
+  );
 };
 
 export default Donor_Register;
-
-
-
-
-

@@ -1,3 +1,108 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  * {
+    @apply transition-colors duration-200;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-base-100 text-base-content;
+  }
+}
+
+@layer components {
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse-slow {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-fadeInUp {
+    @apply animate-[fadeInUp_0.6s_ease-out];
+  }
+
+  .animate-slideInRight {
+    @apply animate-[slideInRight_0.6s_ease-out];
+  }
+
+  .animate-pulse-slow {
+    @apply animate-[pulse-slow_3s_cubic-bezier(0.4,0,0.6,1)_infinite];
+  }
+
+  /* Gradient Text (explicit styles to avoid @apply issues) */
+  .gradient-text {
+    background-image: linear-gradient(to right, #dc2626, #0ea5e9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Card Hover Effects */
+  .card-hover {
+    @apply hover:shadow-xl hover:scale-105 transition-all duration-300;
+  }
+
+  /* Custom Button Styles */
+  .btn-primary-glow {
+    @apply btn btn-primary shadow-lg shadow-primary/50 hover:shadow-xl hover:shadow-primary/75;
+  }
+
+  /* Glass Effect */
+  .glass-effect {
+    @apply backdrop-blur-md bg-white/30 border border-white/20 rounded-lg;
+  }
+
+  /* Loading State */
+  .loading-spinner {
+    @apply animate-spin rounded-full h-12 w-12 border-4 border-base-300;
+    border-top-color: rgb(220, 38, 38);
+  }
+}
+
+/* Utility Classes */
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

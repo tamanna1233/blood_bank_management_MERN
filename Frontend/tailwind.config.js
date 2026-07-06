@@ -1,15 +1,73 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-    theme: {
-    extend: {},
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: "#fef2f2",
+          100: "#fee2e2",
+          200: "#fecaca",
+          300: "#fca5a5",
+          400: "#f87171",
+          500: "#ef4444",
+          600: "#dc2626",
+          700: "#b91c1c",
+          800: "#991b1b",
+          900: "#7f1d1d",
+        },
+        secondary: {
+          50: "#f0f9ff",
+          100: "#e0f2fe",
+          200: "#bae6fd",
+          300: "#7dd3fc",
+          400: "#38bdf8",
+          500: "#0ea5e9",
+          600: "#0284c7",
+          700: "#0369a1",
+          800: "#075985",
+          900: "#0c3d66",
+        },
+        accent: {
+          50: "#f5f3ff",
+          100: "#ede9fe",
+          200: "#ddd6fe",
+          300: "#c4b5fd",
+          400: "#a78bfa",
+          500: "#8b5cf6",
+          600: "#7c3aed",
+          700: "#6d28d9",
+          800: "#5b21b6",
+          900: "#4c1d95",
+        },
+      },
+    },
   },
-  plugins: [
-    require('daisyui'),
-
-  ],
-}
-
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        blood_bank: {
+          primary: "#dc2626",
+          "primary-content": "#ffffff",
+          secondary: "#0284c7",
+          "secondary-content": "#ffffff",
+          accent: "#8b5cf6",
+          "accent-content": "#ffffff",
+          neutral: "#2a2e37",
+          "neutral-content": "#e5e7eb",
+          "base-100": "#ffffff",
+          "base-200": "#f3f4f6",
+          "base-300": "#e5e7eb",
+          "base-content": "#1f2937",
+          info: "#0ea5e9",
+          success: "#10b981",
+          warning: "#f97316",
+          error: "#ef4444",
+        },
+      },
+      "light",
+      "dark",
+    ],
+  },
+};
