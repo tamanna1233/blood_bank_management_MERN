@@ -5,13 +5,13 @@ import {apiResponse} from "../utils/apiResponse.js"
 import { Location } from "../model/location.model.js";
 const generateAccessTokenAndRefreshToken=async(userID)=>{
     try {
-      const patient=  await Donor.findById(userID)
-     const accessToken=  Donor.generateAccessToken()
-      const refreshToken=  Donor.generateRefreshToken()
-      patient.refreshToken=refreshToken
+      const donor=  await Donor.findById(userID)
+     const accessToken=  donor.generateAccessToken()
+      const refreshToken=  donor.generateRefreshToken()
+      donor.refreshToken=refreshToken
       
   
-     await Donor.save({validateBeforeSave:false})
+     await donor.save({validateBeforeSave:false})
   
      return {accessToken,refreshToken}
   
@@ -80,7 +80,10 @@ const login=asyncHandler(async(req,res)=>{
  const donor=await Donor.findOne({email})
 if(!donor){
     throw new apiError(400,"donor not found ")
-
+}
+const isPasswordValid = await donor.isPasswordcorrect(password)
+if(!isPasswordValid){
+    throw new apiError(401,"Invalid user credentials")
 }
  // You can generate a session token or proceed with login
  const { accessToken, refreshToken } = await  generateAccessTokenAndRefreshToken(donor._id);
@@ -104,7 +107,7 @@ return res
 })
 
 const logout=asyncHandler(async(req,res)=>{
-    await Patient.findByIdAndUpdate(
+    await Donor.findByIdAndUpdate(
       req.user._id,
       {
           $unset:{

@@ -15,10 +15,14 @@ app.use(cookieParser())
 import patientRouter from "./routers/patient.routes.js"
 import donorRouter from "./routers/donor.routes.js"
 import AdminRouter from "./routers/admin.routes.js"
-import organizationRouter from "./routers/organization.routes.js"
+import hospitalRouter from "./routers/hospital.routes.js"
+import inventoryRouter from "./routers/inventory.routes.js"
+import workflowRouter from "./routers/workflow.routes.js"
 
 app.use("/api/v1/patient/",patientRouter)   
 app.use("/api/v1/donor/",donorRouter)       
 app.use("/api/v1/admin",AdminRouter)  
-app.use("/api/v1/orgainization",organizationRouter)                                  
+app.use("/api/v1/hospital",hospitalRouter)                                  
+app.use("/api/v1/inventory",inventoryRouter)
+app.use("/api/v1/workflow",workflowRouter)
 export {app}

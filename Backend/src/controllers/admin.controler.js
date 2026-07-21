@@ -3,7 +3,7 @@ import { apiError } from '../utils/apiError.js';
 import { apiResponse } from '../utils/apiResponse.js';
 import {Admin} from '../model/admin.model.js'
 import { Donor } from '../model/donor.model.js';
-import { Orgainzation } from '../model/organization.js';
+import { Hospital } from '../model/hospital.model.js';
 
 const generateAccessTokenAndRefreshToken=async(userID)=>{
     try {
@@ -124,35 +124,24 @@ const getCurrentUser=asyncHandler(async(req,res)=>{
     return res.status(200).json(new apiResponse(200, { donors }, "success"));
 });
 
-const orgainizationList=asyncHandler(async(req,res)=>{
-    const orgainzationList= await Orgainzation.aggregate([
+const hospitalList = asyncHandler(async (req, res) => {
+    const hospitalsList = await Hospital.aggregate([
         {
-            $lookup:{
-            from:"locations",
-            localField:"location",
-            foreignField:"_id",
-            as:"locationdata"
-            }
-
-        },
-        {
-            $unwind: {
-                path: "$locationdata",
-                preserveNullAndEmptyArrays: true // Handle cases where there's no matching location
-            }
-        },{
-            $project:{
-                orgainzationName:1,
-                phoneno:1,
-                headName:1,
-                address:"$locationdata.address",
-                _id:1
+            $project: {
+                hospitalName: 1,
+                registrationNumber: 1,
+                email: 1,
+                phone: 1,
+                address: 1,
+                city: 1,
+                contactPerson: 1,
+                status: 1,
+                _id: 1
             }
         }
-
-    ])
-    return res.status(200).json(new apiResponse(200,{orgainzationList},"success"))
-})
+    ]);
+    return res.status(200).json(new apiResponse(200, { hospitalList: hospitalsList }, "success"));
+});
 
 const logout=asyncHandler(async(req,res)=>{
     await Admin.findByIdAndUpdate(
@@ -178,6 +167,26 @@ const logout=asyncHandler(async(req,res)=>{
    
   })
 
+const updateHospitalStatus = asyncHandler(async (req, res) => {
+    const { hospitalId } = req.params;
+    const { status } = req.body;
+
+    if (!["PENDING", "APPROVED", "REJECTED"].includes(status)) {
+        throw new apiError(400, "Invalid status");
+    }
+
+    const hospital = await Hospital.findByIdAndUpdate(
+        hospitalId,
+        { $set: { status } },
+        { new: true }
+    ).select("-password -refreshToken");
+
+    if (!hospital) {
+        throw new apiError(404, "Hospital not found");
+    }
+
+    return res.status(200).json(new apiResponse(200, { hospital }, `Hospital status updated to ${status}`));
+});
 
 export{
     adminregister,
@@ -185,5 +194,6 @@ export{
     getCurrentUser,
     donorList,
     logout,
-    orgainizationList,
+    hospitalList,
+    updateHospitalStatus
 }

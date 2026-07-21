@@ -12,9 +12,9 @@ const adminSchema= new Schema({
         required:true
     },
     
-    aprovedorganization:{
+    approvedHospitals:{
         type:Schema.Types.ObjectId,
-        ref:"Orgainzation"
+        ref:"Hospital"
 
     },
     requestmangement:{

@@ -5,7 +5,7 @@ import { apiError } from "../utils/apiError.js";
 import { apiResponse } from "../utils/apiResponse.js";
 import { Donor } from "../model/donor.model.js";
 import { Location } from "../model/location.model.js";
-import { Orgainzation } from "../model/organization.js";
+import { Hospital } from "../model/hospital.model.js";
 
 // Generate access and refresh token
 const generateAccessTokenAndRefreshToken = async (userID) => {
