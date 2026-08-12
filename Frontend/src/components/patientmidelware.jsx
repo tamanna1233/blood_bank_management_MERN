@@ -15,7 +15,7 @@ export default function Protected ({children,Authentication=true}) {
 
         navigate('/find_blood')
     }else if (!Authentication && authStatus !== Authentication ){
-            navigate("/details")
+            navigate("/patient_dashboard")
     }
     setloader(false)
     },[authStatus,navigate,Authentication])

@@ -192,31 +192,7 @@ const matchBloodGroup = asyncHandler(async (req, res) => {
         }
       }
     ]);
-  const orgainization=await Orgainzation.aggregate([
-    {$match:{
-      location: { $in: locationIds }, 
-
-    }},
-    {$lookup:{
-      from: 'locations', // Name of the Location collection
-          localField: 'location', // Field in the Donor collection
-          foreignField: '_id', // Field in the Location collection
-          as: 'locationDetails'
-    }},
-    {
-      $unwind: {
-        path: '$locationDetails',
-        preserveNullAndEmptyArrays: true // Preserve donors without location details
-      }
-    },{
-      $project:{
-        address: '$locationDetails.address' ,// Include address from the location details
-        orgainzationName:1,
-        phoneno:1,
-        headName:1
-      }
-    }
-  ])
+ 
 
     console.log('Donors Found:', donors);
 
@@ -224,7 +200,7 @@ const matchBloodGroup = asyncHandler(async (req, res) => {
       return res.status(404).json(new apiResponse(404, {}, 'No compatible donors found'));
     }
 
-    return res.status(200).json(new apiResponse(200, { donors ,orgainization}, 'Success'));
+    return res.status(200).json(new apiResponse(200, { donors }, 'Success'));
   } catch (error) {
     console.error('Error in donor search:', error);
     return res.status(500).json(new apiResponse(500, {}, 'Server error'));

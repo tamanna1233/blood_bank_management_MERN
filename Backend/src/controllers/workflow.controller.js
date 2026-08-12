@@ -177,7 +177,7 @@ export const submitBloodRequest = asyncHandler(async (req, res) => {
 export const updateBloodRequestStatus = asyncHandler(async (req, res) => {
   const { requestId } = req.params;
   const { status, adminRemark } = req.body;
-  // Approving or rejecting, NOT issuing
+
   const request = await BloodRequest.findById(requestId);
   if (!request) throw new apiError(404, "Blood request not found");
 
@@ -188,6 +188,78 @@ export const updateBloodRequestStatus = asyncHandler(async (req, res) => {
     );
   }
 
+  // When APPROVED: deduct inventory atomically and mark as ISSUED immediately
+  if (status === "APPROVED") {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    try {
+      const inventory = await BloodInventory.findOne({
+        bloodGroup: request.bloodGroup,
+      }).session(session);
+
+      if (!inventory) {
+        throw new Error(
+          `No inventory record found for blood group: ${request.bloodGroup}`,
+        );
+      }
+
+      if (inventory.availableUnits < request.unitsRequired) {
+        throw new Error(
+          `Insufficient blood units. Available: ${inventory.availableUnits}, Required: ${request.unitsRequired}`,
+        );
+      }
+
+      const previousUnits = inventory.availableUnits;
+      inventory.availableUnits -= request.unitsRequired;
+      inventory.totalIssuedUnits += request.unitsRequired;
+      inventory.lastUpdatedBy = req.user._id;
+      await inventory.save({ session });
+
+      request.status = "ISSUED";
+      request.issuedUnits = request.unitsRequired;
+      request.adminRemark = adminRemark || request.adminRemark;
+      await request.save({ session });
+
+      await InventoryTransaction.create(
+        [
+          {
+            bloodGroup: request.bloodGroup,
+            transactionType: "BLOOD_ISSUE",
+            units: request.unitsRequired,
+            previousUnits,
+            updatedUnits: inventory.availableUnits,
+            referenceId: request._id,
+            performedBy: req.user._id,
+            remark: adminRemark || "Blood request approved and issued",
+          },
+        ],
+        { session },
+      );
+
+      await session.commitTransaction();
+      session.endSession();
+
+      return res
+        .status(200)
+        .json(
+          new apiResponse(
+            200,
+            { request },
+            "Blood request approved and inventory updated",
+          ),
+        );
+    } catch (error) {
+      await session.abortTransaction();
+      session.endSession();
+      throw new apiError(
+        400,
+        error.message || "Failed to approve blood request",
+      );
+    }
+  }
+
+  // For REJECTED, CANCELLED, or other statuses — just update status
   request.status = status;
   request.adminRemark = adminRemark;
   await request.save();

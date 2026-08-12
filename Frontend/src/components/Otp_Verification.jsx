@@ -55,7 +55,7 @@ const OtpInput = ({ email, onclose }) => {
         toast.success(res.message);
         dispatch(login(res));
         onclose();
-        navigate("/details");
+        navigate("/patient_dashboard");
       } else {
         toast.error(res.message || "OTP verification failed");
       }

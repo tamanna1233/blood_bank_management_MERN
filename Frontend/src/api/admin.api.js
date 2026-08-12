@@ -51,19 +51,26 @@ const  donorlist=async()=>{try {
 }
 }
 
-const  organizationlist=async()=>{
+const  hospitallist=async()=>{
    try {
-     const response=await axios.get("/api/v1/admin/organizationlist")
+     const response=await axios.get("/api/v1/admin/hospitallist")
      return response.data
    } catch (error) {
     return error.response
    }
 }
-
-
+const updateHospitalStatus = async (hospitalId, status) => {
+    try {
+        const response = await axios.put(`/api/v1/admin/hospital/${hospitalId}/status`, { status });
+        return response.data;
+    } catch (error) {
+        if (error.response) return error.response.data;
+        return error.message;
+    }
+}
 
     return {
-        login,currentuser,donorlist,organizationlist,logout
+        login,currentuser,donorlist,hospitallist,logout,updateHospitalStatus
     }
 
 }

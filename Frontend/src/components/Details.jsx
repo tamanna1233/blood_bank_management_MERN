@@ -8,7 +8,7 @@ import { logout as authlogout } from "../App/slice";
 import { useNavigate } from "react-router-dom";
 import { FiDroplet, FiMapPin, FiLogOut, FiSearch } from "react-icons/fi";
 
-const Details = () => {
+const Details = ({ hideLogout = false, searchApi }) => {
   const {
     register,
     handleSubmit,
@@ -16,14 +16,14 @@ const Details = () => {
   } = useForm();
   const [donor, setdonor] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const { findBlood, logout } = usepatientApi();
+  const { findBlood: patientFindBlood, logout } = usepatientApi();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const requesthandeler = async (data) => {
     setIsLoading(true);
     try {
-      const res = await findBlood(data);
+      const res = searchApi ? await searchApi(data) : await patientFindBlood(data);
       setdonor(res);
     } catch (error) {
       console.log(error);
@@ -51,15 +51,17 @@ const Details = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-secondary/5 to-base-100">
       {/* Logout Button */}
-      <div className="flex justify-end p-6">
-        <button
-          onClick={logouthandel}
-          className="btn btn-error gap-2 hover:scale-105 transition-transform shadow-lg"
-        >
-          <FiLogOut size={20} />
-          Logout
-        </button>
-      </div>
+      {!hideLogout && (
+        <div className="flex justify-end p-6">
+          <button
+            onClick={logouthandel}
+            className="btn btn-error gap-2 hover:scale-105 transition-transform shadow-lg"
+          >
+            <FiLogOut size={20} />
+            Logout
+          </button>
+        </div>
+      )}
 
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
